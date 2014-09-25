@@ -16,6 +16,14 @@ Class ZiggeoVideos {
     return $this->application->connect()->getJSON('/videos/' . $token_or_key . '');
   }
 
+  function download_video($token_or_key) {
+    return $this->application->connect()->get('/videos/' . $token_or_key . '/video');
+  }
+
+  function download_image($token_or_key) {
+    return $this->application->connect()->get('/videos/' . $token_or_key . '/image');
+  }
+
   function update($token_or_key, $data = array()) {
     return $this->application->connect()->postJSON('/videos/' . $token_or_key . '', $data);
   }
