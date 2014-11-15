@@ -1,5 +1,5 @@
 {
-  "name": "Ziggeo/ZiggeoPhpSdk",
+  "name": "ziggeo/ziggeophpsdk",
   "require" : {
     "amy/ZiggeoPhpSdk" : "dev-master"
   }
