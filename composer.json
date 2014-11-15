@@ -1,0 +1,5 @@
+{
+  "require" : {
+    "amy/ZiggeoPhpSdk" : "dev-master"
+  }
+}
