@@ -1,0 +1,6 @@
+{
+  "name": "ziggeo/ziggeophpsdk",
+  "require" : {
+      "php": ">=5.3.0"
+  }
+}
