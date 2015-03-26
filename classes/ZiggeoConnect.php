@@ -45,6 +45,8 @@ Class ZiggeoConnect {
 	function post($url, $data = array(), $assert_states = array(ZiggeoException::HTTP_STATUS_OK, ZiggeoException::HTTP_STATUS_CREATED)) {
 		$curl = $this->curl($url);
 		curl_setopt($curl, CURLOPT_POST, true);
+		if (@$data["file"] && class_exists("CurlFile"))
+			$data["file"] = new CurlFile(str_replace("@", "", $data["file"]), "video/mp4", "video.mp4");
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 		$result = curl_exec($curl); 
 		$this->assert_state($assert_states, curl_getinfo($curl, CURLINFO_HTTP_CODE), $result);
