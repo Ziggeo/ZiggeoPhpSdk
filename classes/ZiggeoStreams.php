@@ -34,4 +34,20 @@ Class ZiggeoStreams {
     return $this->application->connect()->postJSON('/videos/' . $video_token_or_key . '/streams', $data);
   }
 
+  function attach_image($video_token_or_key, $token_or_key, $data = array()) {
+    if (isset($data['file']))
+      $data['file'] = '@' . $data['file'];
+    return $this->application->connect()->postJSON('/videos/' . $video_token_or_key . '/streams/' . $token_or_key . '/image', $data);
+  }
+
+  function attach_video($video_token_or_key, $token_or_key, $data = array()) {
+    if (isset($data['file']))
+      $data['file'] = '@' . $data['file'];
+    return $this->application->connect()->postJSON('/videos/' . $video_token_or_key . '/streams/' . $token_or_key . '/video', $data);
+  }
+
+  function bind($video_token_or_key, $token_or_key) {
+    return $this->application->connect()->postJSON('/videos/' . $video_token_or_key . '/streams/' . $token_or_key . '/bind');
+  }
+
 }
