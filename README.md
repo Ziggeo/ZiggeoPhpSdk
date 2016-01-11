@@ -1,5 +1,4 @@
-# Ziggeo PHP Server SDK
-
+# Ziggeo PHP Server SDK 0.0.6
 
 Ziggeo API (http://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the PHP Server SDK repository.
@@ -12,8 +11,8 @@ Pull requests welcome.
 For the client-side integration, you need to add these assets to your html file:
 
 ```html 
-<link rel="stylesheet" href="//assets-cdn.ziggeo.com/css/ziggeo-v1.css" /> 
-<script src="//assets-csn.ziggeo.com/js/ziggeo-v1.js"></script> 
+<link rel="stylesheet" href="//assets-cdn.ziggeo.com/v1-latest/ziggeo.css" /> 
+<script src="//assets-cdn.ziggeo.com/v1-latest/ziggeo.js"></script> 
 ```
 
 Then, you need to specify your api token:
@@ -23,7 +22,7 @@ Then, you need to specify your api token:
 </script>
 ```
 
-You can specify other global options, [see here](http://ziggeo.com/docs#client-integration-header).
+You can specify other global options, [see here](http://ziggeo.com/docs).
 
 To fire up a recorder on your page, add:
 ```html 
@@ -312,6 +311,6 @@ Arguments
 
 ## License
 
-Copyright (c) 2013-2015 Ziggeo
+Copyright (c) 2013-2016 Ziggeo
  
 Apache 2.0 License
