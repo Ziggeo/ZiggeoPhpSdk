@@ -14,7 +14,7 @@ Class ZiggeoAuth {
 		if ($this->cipher == NULL) {
 			$hash = new phpseclib\Crypt\Hash('md5');
 			$hashed_key = bin2hex($hash->hash($this->application->encryption_key()));
-			$this->cipher = new phpseclib\Crypt\AES(CRYPT_AES_MODE_CBC);
+			$this->cipher = new phpseclib\Crypt\AES(phpseclib\Crypt\Base::MODE_CBC);
 			$this->cipher->setKeyLength(256);
 			$this->cipher->setKey($hashed_key);
 		}
