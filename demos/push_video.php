@@ -4,8 +4,6 @@ require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
 $opts = getopt("", array("token:", "privatekey:", "vtoken:", "pstoken:"));
 
-var_dump($opts);
-
 if (empty($opts["pstoken"])) {
     die ("Must provide a push service token");
 }
