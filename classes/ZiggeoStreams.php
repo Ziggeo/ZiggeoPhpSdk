@@ -24,6 +24,10 @@ Class ZiggeoStreams {
     return $this->application->connect()->get('/videos/' . $video_token_or_key . '/streams/' . $token_or_key . '/image');
   }
 
+  function push_to_service($video_token_or_key, $token_or_key, $data = array()) {
+    return $this->application->connect()->postJSON('/videos/' . $video_token_or_key . '/streams/' . $token_or_key . '/push', $data);
+  }
+
   function delete($video_token_or_key, $token_or_key) {
     return $this->application->connect()->delete('/videos/' . $video_token_or_key . '/streams/' . $token_or_key . '');
   }

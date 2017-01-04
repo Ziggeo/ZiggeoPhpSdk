@@ -24,6 +24,10 @@ Class ZiggeoVideos {
     return $this->application->connect()->get('/videos/' . $token_or_key . '/image');
   }
 
+  function push_to_service($token_or_key, $data = array()) {
+    return $this->application->connect()->postJSON('/videos/' . $token_or_key . '/push', $data);
+  }
+
   function update($token_or_key, $data = array()) {
     return $this->application->connect()->postJSON('/videos/' . $token_or_key . '', $data);
   }

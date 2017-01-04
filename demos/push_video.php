@@ -14,7 +14,4 @@ $data = array(
     "pushservicetoken" => $opts["pstoken"]
 );
 
-if (isset($opts["streamtoken"]))
-    $data["streamtoken"] = $opts["streamtoken"];
-
 $ziggeo->videos()->push_to_service($opts["vtoken"], $data);

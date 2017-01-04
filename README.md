@@ -1,6 +1,6 @@
-# Ziggeo PHP Server SDK 0.0.13
+# Ziggeo PHP Server SDK 0.0.15
 
-Ziggeo API (http://ziggeo.com) allows you to integrate video recording and playback with only
+Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the PHP Server SDK repository.
 
 Pull requests welcome.
@@ -50,7 +50,7 @@ $ziggeo = new Ziggeo('*token*', '*private_key*', '*encryption_key*'); ?>
 ## Server-Side Methods
 
 ### Videos  
- 
+
 The videos resource allows you to access all single videos. Each video may contain more than one stream. 
  
 
@@ -100,6 +100,18 @@ $ziggeo->videos()->download_image($token_or_key)
  
 
 
+#### Push To Service 
+ 
+Push a video to a provided push service. 
+
+```php 
+$ziggeo->videos()->push_to_service($token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- pushservicetoken: *Push Services's token (from the Push Services configured for the app)* 
+
+
 #### Update 
  
 Update single video by token or key. 
@@ -145,7 +157,7 @@ Arguments
 
 
 ### Streams  
- 
+
 The streams resource allows you to directly access all streams associated with a single video. 
  
 
@@ -189,6 +201,18 @@ Download the image data associated with the stream
 $ziggeo->streams()->download_image($video_token_or_key, $token_or_key) 
 ``` 
  
+
+
+#### Push To Service 
+ 
+Push a stream to a provided push service. 
+
+```php 
+$ziggeo->streams()->push_to_service($video_token_or_key, $token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- pushservicetoken: *Push Services's token (from the Push Services configured for the app)* 
 
 
 #### Delete 
@@ -248,7 +272,7 @@ $ziggeo->streams()->bind($video_token_or_key, $token_or_key, $arguments = array(
 
 
 ### Authtokens  
- 
+
 The auth token resource allows you to manage authorization settings for video objects. 
  
 

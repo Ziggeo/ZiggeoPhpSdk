@@ -1,7 +1,7 @@
 {
   "name": "ziggeo/ziggeophpsdk",
   "description": "Ziggeo API (http://ziggeo.com) allows you to integrate video recording and playback with only two lines of code in your site, service or app.",
-  "version": "0.0.13",
+  "version": "0.0.15",
   "license": "Apache-2.0",
   "require" : {
       "php": ">=5.3.0",
