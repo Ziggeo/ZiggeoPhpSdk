@@ -65,6 +65,8 @@ Class ZiggeoConnect {
         }
         if (@$data["file"] && class_exists("CurlFile"))
             $data["file"] = new CurlFile(str_replace("@", "", $data["file"]), "video/mp4", "video.mp4");
+	    if (@$data["image_file"] && class_exists("CurlFile"))
+		    $data["image_file"] = new CurlFile(str_replace("@", "", $data["image_file"]), "image/png", "watermark.png");
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         $result = curl_exec($curl); 
         $this->assert_state($assert_states, curl_getinfo($curl, CURLINFO_HTTP_CODE), $result);

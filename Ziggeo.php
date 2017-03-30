@@ -62,6 +62,22 @@ Class Ziggeo {
 		return $this->streams;
 	}
 
+	private $effect_profiles = NULL;
+
+	function effectProfiles() {
+		if (!@$this->effect_profiles)
+			$this->effect_profiles = new ZiggeoEffectProfiles($this);
+		return $this->effect_profiles;
+	}
+
+	private $effect_profile_process = NULL;
+
+	function effectProfileProcess() {
+		if (!@$this->effect_profile_process)
+			$this->effect_profile_process = new ZiggeoEffectProfileProcess($this);
+		return $this->effect_profile_process;
+	}
+
 	private $authtokens = NULL;
 	
 	function authtokens() {
