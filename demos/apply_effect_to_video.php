@@ -9,5 +9,3 @@ $ziggeo = new Ziggeo($opts["token"], $opts["privatekey"]);
 $resp = $ziggeo->videos()->apply_effect($opts["vtoken"], array(
 	"effectprofiletoken" => $opts["effectprofiletoken"]
 ));
-
-var_dump($resp);
