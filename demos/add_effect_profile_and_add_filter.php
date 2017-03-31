@@ -14,4 +14,5 @@ $effect = $ziggeo->effectProfiles()->create(array(
 $filterOpts = array(
 	"filter" => $opts["filter"]
 );
+
 $filter = $ziggeo->effectProfileProcess()->create_filter_process($effect->token, $filterOpts);
