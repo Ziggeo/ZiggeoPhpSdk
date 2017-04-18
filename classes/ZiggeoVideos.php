@@ -28,6 +28,10 @@ Class ZiggeoVideos {
     return $this->application->connect()->postJSON('/videos/' . $token_or_key . '/push', $data);
   }
 
+  function apply_effect($token_or_key, $data = array()) {
+    return $this->application->connect()->postJSON('/videos/' . $token_or_key . '/effect', $data);
+  }
+
   function update($token_or_key, $data = array()) {
     return $this->application->connect()->postJSON('/videos/' . $token_or_key . '', $data);
   }
