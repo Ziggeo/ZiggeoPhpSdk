@@ -4,7 +4,7 @@
 
 	$webhook_data = json_decode( file_get_contents('php://input'), true );
 
-	$event_type = $webhook_data['event_type']; //for video created it would be 'video_stream_push_success'
+	$event_type = $webhook_data['event_type']; //it would be 'video_stream_push_success'
 
 	$video_data = $webhook_data['data']['video'];
 
