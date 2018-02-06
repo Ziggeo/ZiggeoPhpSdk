@@ -1,4 +1,4 @@
-# Ziggeo PHP Server SDK 0.0.19
+# Ziggeo PHP Server SDK 0.1.0
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the PHP Server SDK repository.
@@ -11,14 +11,16 @@ Pull requests welcome.
 For the client-side integration, you need to add these assets to your html file:
 
 ```html 
-<link rel="stylesheet" href="//assets-cdn.ziggeo.com/v1-latest/ziggeo.css" /> 
-<script src="//assets-cdn.ziggeo.com/v1-latest/ziggeo.js"></script> 
+<link rel="stylesheet" href="//assets-cdn.ziggeo.com/v2-stable/ziggeo.css" />
+<script src="//assets-cdn.ziggeo.com/v2-stable/ziggeo.js"></script>
 ```
 
 Then, you need to specify your api token:
 ```html 
 <script>
-	ZiggeoApi.token = "APPLICATION_TOKEN"; 
+    var ziggeoApplication = new ZiggeoApi.V2.Application({
+        token: "APPLICATION_TOKEN"
+    });
 </script>
 ```
 
@@ -26,16 +28,56 @@ You can specify other global options, [see here](https://ziggeo.com/docs).
 
 To fire up a recorder on your page, add:
 ```html 
-<ziggeo></ziggeo> 
+<ziggeorecorder></ziggeorecorder>
 ``` 
 
 To embed a player for an existing video, add:
 ```html 
-<ziggeo ziggeo-video='video-token'></ziggeo> 
+<ziggeoplayer ziggeo-video='video-token'></ziggeoplayer>
 ``` 
 
 For the full documentation, please visit [ziggeo.com](https://ziggeo.com/docs).
 
+## Docker
+
+If you prefer to run this SDK and its demos using [Docker](https://docker.com), build the image as follows:
+
+```bash
+docker build . -t ziggeo-php
+```
+
+You can then run demos as follows:
+```bash
+docker run --rm ziggeo-php /ziggeo/demos/list_all_videos.php --token xxx --privatekey xxx
+```
+
+
+## Webhooks
+
+While you technically do not need this SDK to receive webhooks, we have included a demo for your convenience.
+
+Run as follows:
+```bash
+php -S 0.0.0.0:12345 ./demos/webhook-printer.php
+```
+
+If you want to use docker, run as follows:
+```bash
+docker run --rm -p 12345:12345 ziggeo-php php -S 0.0.0.0:12345 /ziggeo/demos/webhook-printer.php
+```
+
+Your local machine needs to be accessible from the internet via port 12345. In most cases, you will be behind a router / NAT,
+so you will either need to activate some sort of port forwarding or install a local port tunnel like [ngrok](https://ngrok.com).
+
+Once such a tunnel is being installed, you can usually tunnel a particular port like 12345 as follows:
+```bash
+ngrok http 12345
+```
+
+The output will then provide you with a particular publicly accessible domain name that you can add to your Ziggeo webhook list:
+```
+http://543e13e6.ngrok.io -> localhost:12345
+```
 
 ## Server-Side Integration
 
@@ -463,6 +505,6 @@ Arguments
 
 ## License
 
-Copyright (c) 2013-2017 Ziggeo
+Copyright (c) 2013-2018 Ziggeo
  
 Apache 2.0 License
