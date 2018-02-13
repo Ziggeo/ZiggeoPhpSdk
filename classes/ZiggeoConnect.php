@@ -29,8 +29,6 @@ Class ZiggeoConnect {
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curl, CURLOPT_USERPWD, $this->application->token() . ":" . $this->application->private_key());
 
-        curl_exec($curl);
-
         return $curl;
     }
 
