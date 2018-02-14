@@ -6,4 +6,4 @@ $opts = getopt("", array("token:", "privatekey:","authtoken:"));
 
 $ziggeo = new Ziggeo($opts["token"], $opts["privatekey"]);
 
-var_dump($ziggeo->authtokens()->delete($opts["authtoken"]));
+var_dump($ziggeo->authtokens()->get($opts["authtoken"]));

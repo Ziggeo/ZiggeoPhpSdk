@@ -6,10 +6,6 @@ $opts = getopt("", array("token:", "privatekey:"));
 
 $ziggeo = new Ziggeo($opts["token"], $opts["privatekey"]);
 
-var_dump($ziggeo->authtokens()->create(array(
-	"grants" => array(
-		"read" => array(
-			"all" => TRUE
-		)
-	)
-)));
+$effects = $ziggeo->effectProfiles()->index();
+
+var_dump($effects);
