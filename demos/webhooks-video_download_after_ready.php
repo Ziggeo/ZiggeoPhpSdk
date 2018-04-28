@@ -12,7 +12,7 @@
 
 	$video_data = $webhook_data['data']['video'];
 
-	// fwrite(fopen('php://stderr', 'w') , $event_type);
+	
 	if($event_type == 'video_ready'){
 		// setup Ziggeo here, so it won't triggered whenever other event is called
 		require_once(dirname(__FILE__) . "/../Ziggeo.php");
