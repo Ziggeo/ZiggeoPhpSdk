@@ -1,8 +1,8 @@
 <?php
 	// add your own Application token and private key, you can get them on Ziggeo Dashboard
 
-	$app_token = "f9402c3576ed13819e7e5bb4ea3a8baa";
-	$private_key = "518d2a580c4ad2cd18335eece3189a84";
+	$app_token = "APP_TOKEN";
+	$private_key = "PRIVATE_KEY";
 
 	// start handling input
 

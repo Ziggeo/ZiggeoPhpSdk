@@ -1,13 +1,14 @@
 <?php
+	// add your own Application token and private key, you can get them on Ziggeo Dashboard
 
 	$app_token = "APP_TOKEN";
 	$private_key = "PRIAVTE_KEY";
 
-	// start handling 
+	// start handling input
 
 	$webhook_data = json_decode( file_get_contents('php://input'), true );
 
-    $event_type = $webhook_data['event_type']; //it would be 'video_stream_push_success'
+    $event_type = $webhook_data['event_type']; //it would be 'video_ready'
 
 	$video_data = $webhook_data['data']['video'];
 
