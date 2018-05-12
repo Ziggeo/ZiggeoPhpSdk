@@ -5,14 +5,14 @@
 */
 require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
-$opts = getopt("", array("token:", "privatekey:", "video:"));
+$opts = getopt("", array("token:", "privatekey:", "video:", "filename:"));
 
 $ziggeo = new Ziggeo($opts["token"], $opts["privatekey"]);
 
 $video = $ziggeo->videos()->get($opts["video"]);
 
 $file_extension = $video->original_stream->video_type;
-$file_name = $video->original_stream->video_token.".".$file_extension;
+$file_name = @$opts["filename"] ? $opts["filename"] : $video->original_stream->video_token.".".$file_extension;
 
 $file_content = $ziggeo->videos()->download_video($video->original_stream->video_token) ;
 file_put_contents($file_name, $file_content);

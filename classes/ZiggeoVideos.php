@@ -12,8 +12,16 @@ Class ZiggeoVideos {
     return $this->application->connect()->getJSON('/videos/', $data);
   }
 
+  function count($data = array()) {
+    return $this->application->connect()->getJSON('/videos/count', $data);
+  }
+
   function get($token_or_key) {
     return $this->application->connect()->getJSON('/videos/' . $token_or_key . '');
+  }
+
+  function get_bulk($data = array()) {
+    return $this->application->connect()->postJSON('/videos/get_bulk', $data);
   }
 
   function download_video($token_or_key) {
@@ -36,6 +44,10 @@ Class ZiggeoVideos {
     return $this->application->connect()->postJSON('/videos/' . $token_or_key . '', $data);
   }
 
+  function update_bulk($data = array()) {
+    return $this->application->connect()->postJSON('/videos/update_bulk', $data);
+  }
+
   function delete($token_or_key) {
     return $this->application->connect()->delete('/videos/' . $token_or_key . '');
   }
@@ -44,6 +56,10 @@ Class ZiggeoVideos {
     if (isset($data['file']))
       $data['file'] = '@' . $data['file'];
     return $this->application->connect()->postJSON('/videos/', $data);
+  }
+
+  function analytics($token_or_key, $data = array()) {
+    return $this->application->connect()->postJSON('/videos/' . $token_or_key . '/analytics', $data);
   }
 
 }
