@@ -24,12 +24,20 @@ Class ZiggeoVideos {
     return $this->application->connect()->postJSON('/videos/get_bulk', $data);
   }
 
+  function stats_bulk($data = array()) {
+    return $this->application->connect()->postJSON('/videos/stats_bulk', $data);
+  }
+
   function download_video($token_or_key) {
     return $this->application->connect()->get('/videos/' . $token_or_key . '/video');
   }
 
   function download_image($token_or_key) {
     return $this->application->connect()->get('/videos/' . $token_or_key . '/image');
+  }
+
+  function get_stats($token_or_key) {
+    return $this->application->connect()->getJSON('/videos/' . $token_or_key . '/stats');
   }
 
   function push_to_service($token_or_key, $data = array()) {

@@ -1,4 +1,4 @@
-# Ziggeo PHP Server SDK 0.1.2
+# Ziggeo PHP Server SDK 0.1.3
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the PHP Server SDK repository.
@@ -147,6 +147,19 @@ Arguments
 - tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).* 
 
 
+#### Stats Bulk 
+ 
+Get stats for multiple videos by tokens or keys. 
+
+```php 
+$ziggeo->videos()->stats_bulk($arguments = array()) 
+``` 
+ 
+Arguments 
+- tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).* 
+- summarize: *Boolean. Set it to TRUE to get the stats summarized. Set it to FALSE to get the stats for each video in a separate array. Default: TRUE.* 
+
+
 #### Download Video 
  
 Download the video data file 
@@ -163,6 +176,16 @@ Download the image data file
 
 ```php 
 $ziggeo->videos()->download_image($token_or_key) 
+``` 
+ 
+
+
+#### Get Stats 
+ 
+Get the video's stats 
+
+```php 
+$ziggeo->videos()->get_stats($token_or_key) 
 ``` 
  
 
@@ -555,6 +578,125 @@ Arguments
 - vertical: *Specify the vertical position of your watermark (a value between 0.0 and 1.0)* 
 - horizontal: *Specify the horizontal position of your watermark (a value between 0.0 and 1.0)* 
 - scale: *Specify the image scale of your watermark (a value between 0.0 and 1.0)* 
+
+
+### MetaProfiles  
+
+The meta profiles resource allows you to access and create meta profiles for your app. Each meta profile may contain one process or more. 
+ 
+
+#### Create 
+ 
+Create a new meta profile. 
+
+```php 
+$ziggeo->metaProfiles()->create($arguments = array()) 
+``` 
+ 
+Arguments 
+- key: *Meta Profile profile key.* 
+- title: *Meta Profile profile title.* 
+
+
+#### Index 
+ 
+Get list of meta profiles. 
+
+```php 
+$ziggeo->metaProfiles()->index($arguments = array()) 
+``` 
+ 
+Arguments 
+- limit: *Limit the number of returned meta profiles. Can be set up to 100.* 
+- skip: *Skip the first [n] entries.* 
+- reverse: *Reverse the order in which meta profiles are returned.* 
+
+
+#### Get 
+ 
+Get a single meta profile 
+
+```php 
+$ziggeo->metaProfiles()->get($token_or_key) 
+``` 
+ 
+
+
+#### Delete 
+ 
+Delete the meta profile 
+
+```php 
+$ziggeo->metaProfiles()->delete($token_or_key) 
+``` 
+ 
+
+
+### MetaProfileProcess  
+
+The process resource allows you to directly access all process associated with a single meta profile. 
+ 
+
+#### Index 
+ 
+Return all processes associated with a meta profile 
+
+```php 
+$ziggeo->metaProfileProcess()->index($meta_token_or_key) 
+``` 
+ 
+
+
+#### Get 
+ 
+Get a single process 
+
+```php 
+$ziggeo->metaProfileProcess()->get($meta_token_or_key, $token_or_key) 
+``` 
+ 
+
+
+#### Delete 
+ 
+Delete the process 
+
+```php 
+$ziggeo->metaProfileProcess()->delete($meta_token_or_key, $token_or_key) 
+``` 
+ 
+
+
+#### Create Video Analysis Process 
+ 
+Create a new video analysis meta process 
+
+```php 
+$ziggeo->metaProfileProcess()->create_video_analysis_process($meta_token_or_key) 
+``` 
+ 
+
+
+#### Create Audio Transcription Process 
+ 
+Create a new audio transcription meta process 
+
+```php 
+$ziggeo->metaProfileProcess()->create_audio_transcription_process($meta_token_or_key) 
+``` 
+ 
+
+
+#### Create Nsfw Process 
+ 
+Create a new nsfw filter meta process 
+
+```php 
+$ziggeo->metaProfileProcess()->create_nsfw_process($meta_token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- nsfw_action: *One of the following three: approve, reject, nothing.* 
 
 
 ### Webhooks  

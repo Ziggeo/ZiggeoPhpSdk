@@ -78,6 +78,22 @@ Class Ziggeo {
 		return $this->effect_profile_process;
 	}
 
+    private $meta_profiles = NULL;
+
+    function metaProfiles() {
+        if (!@$this->meta_profiles)
+            $this->meta_profiles = new ZiggeoMetaProfiles($this);
+        return $this->meta_profiles;
+    }
+
+    private $meta_profile_process = NULL;
+
+    function metaProfileProcess() {
+        if (!@$this->meta_profile_process)
+            $this->meta_profile_process = new ZiggeoMetaProfileProcess($this);
+        return $this->meta_profile_process;
+    }
+
 	private $authtokens = NULL;
 	
 	function authtokens() {
