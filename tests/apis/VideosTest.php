@@ -11,10 +11,10 @@ class VideosTest extends ServerApiTestCase {
 		$this->assertEquals(count($this->ziggeo->videos()->index(array("states" => "all"))), 1);
 		$this->assertEquals(count($this->ziggeo->videos()->index(array("states" => "ready"))), 0);
 		$video = $this->ziggeo->videos()->get($video->token);
-        $this->assertEquals(count($this->ziggeo->videos()->index(array("tags" => "foobar"))), 0);
+        $this->assertEquals(count($this->ziggeo->videos()->index(array("states" => "all", "tags" => "foobar"))), 0);
 		$this->ziggeo->videos()->update("_test", array("tags" => "foobar", "data" => json_encode(array("test" => 1234))));
 		$this->ziggeo->videos()->update("_test", array("data" => json_encode(array("test" => 5678))));
-        $this->assertEquals(count($this->ziggeo->videos()->index(array("tags" => "foobar"))), 1);
+        $this->assertEquals(count($this->ziggeo->videos()->index(array("states" => "all", "tags" => "foobar"))), 1);
 		$this->assertTrue($video != NULL);
 		$video = $this->ziggeo->videos()->get("_test");
 		$this->assertTrue($video != NULL);
