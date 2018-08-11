@@ -1,113 +1,142 @@
 <?php
 
 spl_autoload_register(function ($class) {
-	$fname = dirname(__FILE__) . "/classes/" . $class . '.php';
-	if (file_exists($fname))
-	    include $fname;
+    $fname = dirname(__FILE__) . "/classes/" . $class . '.php';
+    if (file_exists($fname))
+        include $fname;
 });
 
 Class Ziggeo {
-	
-	private $token;
-	private $private_key;
-	private $encryption_key;
-	
-	function __construct($token, $private_key, $encryption_key = NULL) {
-		$this->token = $token;
-		$this->private_key = $private_key;
-		$this->encryption_key = $encryption_key;
-	}
-    
-	function token() {
-		return $this->token;
-	}
-	
-	function private_key() {
-		return $this->private_key;
-	}
-	
-	function encryption_key() {
-		return $this->encryption_key;
-	}
 
-	private $config;
+    private $token;
+    private $private_key;
+    private $encryption_key;
 
-	function config() {
-		if (!@$this->config)
-			$this->config = new ZiggeoConfig();
-		return $this->config;
-	}
+    function __construct($token, $private_key, $encryption_key = NULL) {
+        $this->token = $token;
+        $this->private_key = $private_key;
+        $this->encryption_key = $encryption_key;
+    }
 
-	private $connect;
+    function token() {
+        return $this->token;
+    }
 
-	function connect() {
-		if (!@$this->connect)
-			$this->connect = new ZiggeoConnect($this);
-		return $this->connect;
-	}
-	
-	private $videos = NULL;
-	
-	function videos() {
-		if (!@$this->videos)
-			$this->videos = new ZiggeoVideos($this);
-		return $this->videos;
-	}
-	
-	private $streams = NULL;
-	
-	function streams() {
-		if (!@$this->streams)
-			$this->streams = new ZiggeoStreams($this);
-		return $this->streams;
-	}
+    function private_key() {
+        return $this->private_key;
+    }
 
-	private $effect_profiles = NULL;
+    function encryption_key() {
+        return $this->encryption_key;
+    }
 
-	function effectProfiles() {
-		if (!@$this->effect_profiles)
-			$this->effect_profiles = new ZiggeoEffectProfiles($this);
-		return $this->effect_profiles;
-	}
 
-	private $effect_profile_process = NULL;
+    private $config = NULL;
 
-	function effectProfileProcess() {
-		if (!@$this->effect_profile_process)
-			$this->effect_profile_process = new ZiggeoEffectProfileProcess($this);
-		return $this->effect_profile_process;
-	}
+    function config() {
+        if (!@$this->config)
+            $this->config = new ZiggeoConfig($this);
+        return $this->config;
+    }
 
-    private $meta_profiles = NULL;
+
+    private $connect = NULL;
+
+    function connect() {
+        if (!@$this->connect)
+            $this->connect = new ZiggeoConnect($this);
+        return $this->connect;
+    }
+
+
+    private $auth = NULL;
+
+    function auth() {
+        if (!@$this->auth)
+            $this->auth = new ZiggeoAuth($this);
+        return $this->auth;
+    }
+
+
+    private $videos = NULL;
+
+    function videos() {
+        if (!@$this->videos)
+            $this->videos = new ZiggeoVideos($this);
+        return $this->videos;
+    }
+
+
+    private $streams = NULL;
+
+    function streams() {
+        if (!@$this->streams)
+            $this->streams = new ZiggeoStreams($this);
+        return $this->streams;
+    }
+
+
+    private $authtokens = NULL;
+
+    function authtokens() {
+        if (!@$this->authtokens)
+            $this->authtokens = new ZiggeoAuthtokens($this);
+        return $this->authtokens;
+    }
+
+
+    private $effectProfiles = NULL;
+
+    function effectProfiles() {
+        if (!@$this->effectProfiles)
+            $this->effectProfiles = new ZiggeoEffectProfiles($this);
+        return $this->effectProfiles;
+    }
+
+
+    private $effectProfileProcess = NULL;
+
+    function effectProfileProcess() {
+        if (!@$this->effectProfileProcess)
+            $this->effectProfileProcess = new ZiggeoEffectProfileProcess($this);
+        return $this->effectProfileProcess;
+    }
+
+
+    private $metaProfiles = NULL;
 
     function metaProfiles() {
-        if (!@$this->meta_profiles)
-            $this->meta_profiles = new ZiggeoMetaProfiles($this);
-        return $this->meta_profiles;
+        if (!@$this->metaProfiles)
+            $this->metaProfiles = new ZiggeoMetaProfiles($this);
+        return $this->metaProfiles;
     }
 
-    private $meta_profile_process = NULL;
+
+    private $metaProfileProcess = NULL;
 
     function metaProfileProcess() {
-        if (!@$this->meta_profile_process)
-            $this->meta_profile_process = new ZiggeoMetaProfileProcess($this);
-        return $this->meta_profile_process;
+        if (!@$this->metaProfileProcess)
+            $this->metaProfileProcess = new ZiggeoMetaProfileProcess($this);
+        return $this->metaProfileProcess;
     }
 
-	private $authtokens = NULL;
-	
-	function authtokens() {
-		if (!@$this->authtokens)
-			$this->authtokens = new ZiggeoAuthtokens($this);
-		return $this->authtokens;
-	}
 
-	private $auth = NULL;
-	
-	function auth() {
-		if (!@$this->auth)
-			$this->auth = new ZiggeoAuth($this);
-		return $this->auth;
-	}
+    private $webhooks = NULL;
+
+    function webhooks() {
+        if (!@$this->webhooks)
+            $this->webhooks = new ZiggeoWebhooks($this);
+        return $this->webhooks;
+    }
+
+
+    private $analytics = NULL;
+
+    function analytics() {
+        if (!@$this->analytics)
+            $this->analytics = new ZiggeoAnalytics($this);
+        return $this->analytics;
+    }
+
 
 }
