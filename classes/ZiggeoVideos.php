@@ -48,6 +48,10 @@ Class ZiggeoVideos {
     return $this->application->connect()->postJSON('/videos/' . $token_or_key . '/effect', $data);
   }
 
+  function apply_meta($token_or_key, $data = array()) {
+    return $this->application->connect()->postJSON('/videos/' . $token_or_key . '/metaprofile', $data);
+  }
+
   function update($token_or_key, $data = array()) {
     return $this->application->connect()->postJSON('/videos/' . $token_or_key . '', $data);
   }
