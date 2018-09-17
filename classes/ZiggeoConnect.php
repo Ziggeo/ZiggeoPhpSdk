@@ -4,18 +4,13 @@ Class ZiggeoConnect {
 
     private $application;
 
-    function __construct($application) {
+    function __construct($application, $baseUrl) {
         $this->application = $application;
+        $this->baseUrl = $baseUrl;
     }
 
     private function curl($url) {
-        $server_api_url = $this->application->config()->get("server_api_url");
-        $regions = $this->application->config()->get("regions");
-        foreach ($regions as $key => $value)
-            if (strpos($this->application->token(), $key) === 0)
-                $server_api_url = $value;
-
-        $curl = curl_init($server_api_url . "/v1" . $url);
+        $curl = curl_init($this->baseUrl . $url);
         curl_setopt($curl, CURLOPT_FAILONERROR, true);
 
         if( (ini_get('safe_mode') === 'Off' || ini_get('safe_mode') === false) && ini_get('open_basedir') === '' ) {

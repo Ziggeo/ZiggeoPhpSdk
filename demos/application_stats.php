@@ -6,4 +6,4 @@ $opts = getopt("", array("token:", "privatekey:"));
 
 $ziggeo = new Ziggeo($opts["token"], $opts["privatekey"]);
 
-echo ($ziggeo->videos()->count()->count . "\n");
+var_dump($ziggeo->application()->get_stats());

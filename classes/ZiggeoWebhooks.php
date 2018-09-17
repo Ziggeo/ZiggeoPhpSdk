@@ -9,11 +9,11 @@ Class ZiggeoWebhooks {
   }
 
   function create($data = array()) {
-    return $this->application->connect()->post('/api/hook', $data);
+    return $this->application->connect()->post('/v1/api/hook', $data);
   }
 
   function delete($data = array()) {
-    return $this->application->connect()->post('/api/removehook', $data);
+    return $this->application->connect()->post('/v1/api/removehook', $data);
   }
 
 }

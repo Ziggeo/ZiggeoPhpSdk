@@ -9,7 +9,7 @@ Class ZiggeoAnalytics {
   }
 
   function get($data = array()) {
-    return $this->application->connect()->postJSON('/analytics/get', $data);
+    return $this->application->connect()->postJSON('/v1/analytics/get', $data);
   }
 
 }
