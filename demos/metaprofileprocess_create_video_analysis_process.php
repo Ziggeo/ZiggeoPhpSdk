@@ -1,6 +1,8 @@
 <?php
 /*
-	This script will show you how to create a meta profile
+	This script will show you how to create a meta profile and attach video analysis process
+
+	Info: https://ziggeo.com/features/visual-analysis
 
 	Parameters you need to pass:
 	1. app_token
@@ -12,11 +14,14 @@ require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
 $opts = getopt("", array("app_token:", "private_key:", "meta_title:", "meta_key:"));
 
+//We initiate our SDK
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
-$ziggeo->metaProfiles()->create(array(
+$metaprofiles = $ziggeo->metaProfiles()->create(array(
 	"title" => $opts["meta_title"],
 	"key" => (!empty($opts["meta_key"])) ? $opts["meta_key"] : null
 ));
+
+$ziggeo->metaProfileProcess()->create_video_analysis_process($metaprofiles->token));
 
 ?>
