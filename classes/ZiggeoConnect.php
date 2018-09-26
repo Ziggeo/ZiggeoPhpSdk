@@ -4,9 +4,10 @@ Class ZiggeoConnect {
 
     private $application;
 
-    function __construct($application, $baseUrl) {
+    function __construct($application, $baseUrl, $requestTimeout=60) {
         $this->application = $application;
         $this->baseUrl = $baseUrl;
+        $this->requestTimeout = $requestTimeout;
     }
 
     private function curl($url) {
@@ -17,11 +18,13 @@ Class ZiggeoConnect {
             //we can only make curl follow the redirects if the safe mod is off and open_basedir is not set, otherwise it would throw error
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         }
-
+        
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); 
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false); 
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->requestTimeout);
+        curl_setopt($curl, CURLOPT_TIMEOUT, $this->requestTimeout);
         curl_setopt($curl, CURLOPT_USERPWD, $this->application->token() . ":" . $this->application->private_key());
 
         return $curl;
