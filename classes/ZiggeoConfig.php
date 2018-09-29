@@ -18,5 +18,10 @@ Class ZiggeoConfig {
 	function get($ident) {
 		return $this->config[$ident];
 	}
+
+	function set($ident, $value) {
+		$this->config[$ident] = $value;
+		return true;
+	}
 	
 }
