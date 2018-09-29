@@ -4,7 +4,7 @@ Class ZiggeoConnect {
 
     private $application;
 
-    function __construct($application, $baseUrl, $requestTimeout=60) {
+    function __construct($application, $baseUrl, $requestTimeout) {
         $this->application = $application;
         $this->baseUrl = $baseUrl;
         $this->requestTimeout = $requestTimeout;

@@ -12,10 +12,15 @@ Class Ziggeo {
     private $private_key;
     private $encryption_key;
 
-    function __construct($token, $private_key, $encryption_key = NULL) {
+    function __construct($token, $private_key, $encryption_key = NULL, $config = NULL) {
         $this->token = $token;
         $this->private_key = $private_key;
         $this->encryption_key = $encryption_key;
+        if(is_array($config)){
+            foreach($config as $ident => $value){
+                $this->config()->set($ident, $value);
+            }
+        }
     }
 
     function token() {
