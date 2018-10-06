@@ -10,13 +10,13 @@
 	3. effect_title
 	4. effect_key (optional)
 	5. file_path
-	6. horizontal_placement
-	7. vertical_placement
-	8. image_scale
+	6. horizontal_position
+	7. vertical_position
+	8. video_scale
 */
 require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
-$opts = getopt("", array("app_token:", "private_key:", "effect_title:", "effect_key:", "file_path:", "horizontal_placement:", "vertical_placement:", "image_scale:"));
+$opts = getopt("", array("app_token:", "private_key:", "effect_title:", "effect_key:", "file_path:", "horizontal_position:", "vertical_position:", "video_scale:"));
 
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
@@ -29,9 +29,9 @@ $effect = $ziggeo->effectProfiles()->create(array(
 //Set up the watermark object
 $watermarkOpts = array(
 	"file" => $opts["file_path"],
-	"horizontal" => $opts["horizontal_placement"], //horizontal placement of the watermark in the video
-	"vertical" => $opts["vertical_placement"], //vertical placement of the watermark in the video
-	"scale" => $opts["image_scale"] //amount of scaling done on the image before added to the video
+	"horizontal_position" => $opts["horizontal_position"], //horizontal placement of the watermark in the video
+	"vertical_position" => $opts["vertical_position"], //vertical placement of the watermark in the video
+	"video_scale" => $opts["video_scale"] //amount of scaling done on the image before added to the video
 );
 
 //Assign a new watermark process to our new effect profile
