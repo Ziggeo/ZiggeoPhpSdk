@@ -1,5 +1,4 @@
-
-# Ziggeo PHP Server SDK 0.1.8
+# Ziggeo PHP Server SDK 0.1.9
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the PHP Server SDK repository.
@@ -86,16 +85,9 @@ You can integrate the Server SDK as follows:
 
 ```php 
 <?php require_once('./ziggeo/Ziggeo.php');
-$config = array('request_time'=>10);
-$ziggeo = new Ziggeo('*token*', '*private_key*', '*encryption_key*', '*config*'); ?> 
+$ziggeo = new Ziggeo('*token*', '*private_key*', '*encryption_key*', *config*); ?> 
 ```
 
-Arguments
-- token: *Application token you can get from Ziggeo dashboard* **Mandatory**
-- private_key: *Private key you can get from Ziggeo dashboard* **Mandatory**
-- encryption_key: *Encryption key you can get from Ziggeo dashboard* **Optional**
-- config: *Associative array of $config => $value*  **optional** the config name are:
-  - **request_timeout**: Time in seconds before the script deciding to give up. Default to 60 seconds.
 
 ## Server-Side Methods
 

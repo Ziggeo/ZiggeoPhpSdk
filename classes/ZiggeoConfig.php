@@ -11,7 +11,7 @@ Class ZiggeoConfig {
 			"server_api_url" => "https://srvapi.ziggeo.com",
             "api_regions" => array("r1" => "https://api-eu-west-1.ziggeo.com", ),
             "api_url" => "https://api-us-east-1.ziggeo.com",
-            "request_timeout"=>60
+            "request_timeout" => 60,
 		);
 	}
 	
@@ -19,9 +19,9 @@ Class ZiggeoConfig {
 		return $this->config[$ident];
 	}
 
-	function set($ident, $value) {
-		$this->config[$ident] = $value;
-		return true;
-	}
+    function set($ident, $value) {
+        $this->config[$ident] = $value;
+        return $this;
+    }
 	
 }

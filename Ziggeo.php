@@ -16,10 +16,9 @@ Class Ziggeo {
         $this->token = $token;
         $this->private_key = $private_key;
         $this->encryption_key = $encryption_key;
-        if(is_array($config)){
-            foreach($config as $ident => $value){
+        if (is_array($config)) {
+            foreach($config as $ident => $value)
                 $this->config()->set($ident, $value);
-            }
         }
     }
 
