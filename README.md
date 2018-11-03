@@ -1,4 +1,4 @@
-# Ziggeo PHP Server SDK 0.1.9
+# Ziggeo PHP Server SDK 0.1.10
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the PHP Server SDK repository.
