@@ -509,7 +509,6 @@ Arguments
 - client_can_index_videos: *Client is allowed to perform the index operation* 
 - client_cannot_access_unaccepted_videos: *Client cannot view unaccepted videos* 
 - enable_video_subpages: *Enable hosted video pages* 
-- enable_facebook: *Enable Facebook Support for hosted video pages* 
 
 
 #### Get Stats 
