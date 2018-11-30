@@ -16,7 +16,7 @@ Globals::$CONFIG = json_decode($_SERVER['argv'][2], TRUE);
 require_once(dirname(__FILE__) . "/../../Ziggeo.php");
 
 
-Class ServerApiTestCase extends PHPUnit_Framework_TestCase {
+Class ServerApiTestCase extends PHPUnit\Framework\TestCase {
 	
 	protected $ziggeo = NULL;
 	
