@@ -12,6 +12,10 @@ Class ZiggeoWebhooks {
     return $this->application->connect()->post('/v1/api/hook', $data);
   }
 
+  function confirm($data = array()) {
+    return $this->application->connect()->post('/v1/api/confirmhook', $data);
+  }
+
   function delete($data = array()) {
     return $this->application->connect()->post('/v1/api/removehook', $data);
   }
