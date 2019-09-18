@@ -30,4 +30,10 @@ Class ZiggeoEffectProfileProcess {
     return $this->application->connect()->postJSON('/v1/effects/' . $effect_token_or_key . '/process/watermark', $data);
   }
 
+  function edit_watermark_process($effect_token_or_key, $token_or_key, $data = array()) {
+    if (isset($data['file']))
+      $data['file'] = '@' . $data['file'];
+    return $this->application->connect()->postJSON('/v1/effects/' . $effect_token_or_key . '/process/watermark/' . $token_or_key . '', $data);
+  }
+
 }

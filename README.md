@@ -1,4 +1,4 @@
-# Ziggeo PHP Server SDK 0.1.15
+# Ziggeo PHP Server SDK 0.1.17
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the PHP Server SDK repository.
@@ -407,6 +407,20 @@ Arguments
 - file: *Video file to be attached* 
 
 
+#### Attach Subtitle 
+ 
+Attaches a video to a new stream 
+
+```php 
+$ziggeo->streams()->attach_subtitle($video_token_or_key, $token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- lang: *Subtitle language* 
+- label: *Subtitle reference* 
+- data: *Actual subtitle* 
+
+
 #### Bind 
  
 Closes and submits the stream 
@@ -643,6 +657,21 @@ Attaches an image to a new stream
 
 ```php 
 $ziggeo->effectProfileProcess()->create_watermark_process($effect_token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- file: *Image file to be attached* 
+- vertical_position: *Specify the vertical position of your watermark (a value between 0.0 and 1.0)* 
+- horizontal_position: *Specify the horizontal position of your watermark (a value between 0.0 and 1.0)* 
+- video_scale: *Specify the image scale of your watermark (a value between 0.0 and 1.0)* 
+
+
+#### Edit Watermark Process 
+ 
+Edits an existing watermark process. 
+
+```php 
+$ziggeo->effectProfileProcess()->edit_watermark_process($effect_token_or_key, $token_or_key, $arguments = array()) 
 ``` 
  
 Arguments 
