@@ -9,12 +9,12 @@
 */
 require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
-$opts = getopt("", array("app_token:", "private_key:"));
+$opts = getopt("", array("app_token:", "private_key:", "file_path:"));
 
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
 $ziggeo->videos()->create(array(
-	"file" => $file_path //path and name with extension
+	"file" => $opts["file_path"] //path and name with extension
 ));
 
 ?>
