@@ -49,11 +49,10 @@ Class Ziggeo {
         if (!@$this->connect) {
             $server_api_url = $this->config()->get("server_api_url");
             $regions = $this->config()->get("regions");
-            $request_timeout = $this->config()->get("request_timeout");
             foreach ($regions as $key => $value)
                 if (strpos($this->token(), $key) === 0)
                     $server_api_url = $value;
-            $this->connect = new ZiggeoConnect($this, $server_api_url, $request_timeout);
+            $this->connect = new ZiggeoConnect($this, $server_api_url, $this->config());
         }
         return $this->connect;
     }
@@ -65,11 +64,10 @@ Class Ziggeo {
         if (!@$this->apiConnect) {
             $api_url = $this->config()->get("api_url");
             $api_regions = $this->config()->get("api_regions");
-            $request_timeout = $this->config()->get("request_timeout");
             foreach ($api_regions as $key => $value)
                 if (strpos($this->token(), $key) === 0)
                     $api_url = $value;
-            $this->apiConnect = new ZiggeoConnect($this, $api_url, $request_timeout);
+            $this->apiConnect = new ZiggeoConnect($this, $api_url, $this->config());
         }
         return $this->apiConnect;
     }

@@ -1,4 +1,4 @@
-# Ziggeo PHP Server SDK 0.1.17
+# Ziggeo PHP Server SDK 0.1.18
 
 Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
 two lines of code in your site, service or app. This is the PHP Server SDK repository.
@@ -241,6 +241,7 @@ Arguments
 - key: *Unique (optional) name of video* 
 - volatile: *Automatically removed this video if it remains empty* 
 - expiration_days: *After how many days will this video be deleted* 
+- expire_on: *On which date will this video be deleted. String in ISO 8601 format: YYYY-MM-DD* 
 
 
 #### Update Bulk 
@@ -258,6 +259,7 @@ Arguments
 - tags: *Video Tags* 
 - volatile: *Automatically removed this video if it remains empty* 
 - expiration_days: *After how many days will this video be deleted* 
+- expire_on: *On which date will this video be deleted. String in ISO 8601 format: YYYY-MM-DD* 
 
 
 #### Delete 
@@ -869,6 +871,6 @@ Arguments
 
 ## License
 
-Copyright (c) 2013-2019 Ziggeo
+Copyright (c) 2013-2020 Ziggeo
  
 Apache 2.0 License

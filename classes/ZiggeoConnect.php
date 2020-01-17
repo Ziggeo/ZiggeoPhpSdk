@@ -5,12 +5,10 @@ Class ZiggeoConnect {
     private $application;
     private $config;
 
-    function __construct($application, $baseUrl, $requestTimeout) {
+    function __construct($application, $baseUrl, $config) {
         $this->application = $application;
         $this->baseUrl = $baseUrl;
-        $this->requestTimeout = $requestTimeout;
-
-        $this->config = new ZiggeoConfig($this);
+        $this->config = $config;
     }
 
     private function curl($url) {
@@ -26,8 +24,8 @@ Class ZiggeoConnect {
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false); 
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->requestTimeout);
-        curl_setopt($curl, CURLOPT_TIMEOUT, $this->requestTimeout);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->config->get("request_timeout"));
+        curl_setopt($curl, CURLOPT_TIMEOUT, $this->config->get("request_timeout"));
         curl_setopt($curl, CURLOPT_USERPWD, $this->application->token() . ":" . $this->application->private_key());
 
         return $curl;
@@ -90,9 +88,6 @@ Class ZiggeoConnect {
     }
 
     public function makeRequest($request_type = 'POST', $url, $data = false) {
-
-        $success = false;
-
         for($i = 0; $i < $this->config->get("resilience_factor"); $i++) {
 
             $result = $this->singleRequest($request_type, $url, $data);
@@ -130,11 +125,8 @@ Class ZiggeoConnect {
         if (count($data) > 0) {
             $url .= '?' . http_build_query($data);
         }
-
         $result = $this->makeRequest('GET', $url);
-
         $this->assert_state($assert_state, $result['info']['response_code'], $result['response']);
-
         return $result['response'];
     }
 
@@ -143,18 +135,14 @@ Class ZiggeoConnect {
     }
 
     function post($url, $data = array(), $assert_states = array(ZiggeoException::HTTP_STATUS_OK, ZiggeoException::HTTP_STATUS_CREATED)) {
-
         foreach ($data as $key=>$value) {
             if (is_array($value))
                 $data[$key] = json_encode($value);
         }
-
         if (isset($data["file"]) && class_exists("CurlFile")) {
             $data["file"] = new CurlFile(str_replace("@", "", $data["file"]), "video/mp4", "video.mp4");
         }
-
         $result = $this->makeRequest('POST', $url, $data);
-
         $this->assert_state($assert_states, $result['info']['response_code'], $result['response']);
         return $result['response'];
     }
@@ -164,9 +152,7 @@ Class ZiggeoConnect {
     }
 
     function delete($url, $assert_state = ZiggeoException::HTTP_STATUS_OK) {
-
         $result = $this->makeRequest('DELETE', $url);
-
         $this->assert_state($assert_state, $result['info']['response_code'], $result['response']);
         return $result['response'];
     }
