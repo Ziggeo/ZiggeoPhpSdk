@@ -4,11 +4,21 @@ Class ZiggeoConnect {
 
     private $application;
     private $config;
+    private $point_zero;
+    private $progress_old;
 
     function __construct($application, $baseUrl, $config) {
         $this->application = $application;
         $this->baseUrl = $baseUrl;
         $this->config = $config;
+        $this->point_zero = 0;
+        
+        if (version_compare(phpversion(), '5.5.0', '<')) {
+            $this->progress_old = true;
+        }
+        else {
+            $this->progress_old = false;
+        }
     }
 
     private function curl($url) {
@@ -27,10 +37,33 @@ Class ZiggeoConnect {
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->config->get("request_timeout"));
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->config->get("request_timeout"));
         curl_setopt($curl, CURLOPT_USERPWD, $this->application->token() . ":" . $this->application->private_key());
-
+        
+        //Check if we should activate progress info output
+        if($this->config->get('info')['progress_show'] === true) {
+            curl_setopt($curl, CURLOPT_PROGRESSFUNCTION, array($this, 'progressHandler'));
+            curl_setopt($curl, CURLOPT_NOPROGRESS, false);
+        }
+    
         return $curl;
     }
 
+    private function progressHandler($resource, $download_size = 0, $downloaded = 0, $upload_size = 0, $uploaded = 0) {
+
+        if($this->progress_old) {
+            //Need this because the params are moved between different versions..
+            $uploaded = $upload_size;
+            $upload_size = $downloaded;
+            $downloaded = $download_size;
+            $download_size = $resource;
+        }
+    
+        echo "\n";
+        echo 'Runtime: ' . ((float)microtime(true) - (float)$this->point_zero) . ' seconds';
+        echo ' Upload status: ' . ($uploaded / $this->config->get('info')['progress_multiplier']) . ' / ' . ($upload_size / $this->config->get('info')['progress_multiplier']) . ' ' . $this->config->get('info')['progress_desc'];
+
+        return 0;
+    }
+    
     private function singleRequest($request_type = 'POST', $url = '', $data) {
 
         $curl = $this->curl($url);
@@ -45,6 +78,7 @@ Class ZiggeoConnect {
         }
 
         //Let us make the call
+        $this->point_zero = microtime(true);
         $result_data = curl_exec($curl);
 
         //At this time both are supported, since later is legacy now soon it will be dropped, so future proofing
