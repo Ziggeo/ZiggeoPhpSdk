@@ -1,12 +1,131 @@
-# Ziggeo PHP Server SDK 0.1.19
+# Ziggeo's PHP Server SDK
 
-Ziggeo API (https://ziggeo.com) allows you to integrate video recording and playback with only
-two lines of code in your site, service or app. This is the PHP Server SDK repository.
+latest version:  **0.1.19**
 
-Pull requests welcome.
+## Index
 
+1. [Why Ziggeo's PHP Server Side SDK?](#why-us)
+2. [Prerequisites](#prerequisites)
+    1. [Download](#download)
+    2. [How to use](#how-to-use)
+    3. [Dependencies](#dependencies)
+3. [Client-Side Integration](#codes-client-side)
+4. [Server-Side Integration](#codes-server-side)
+    1. [Init](#codes-init)
+    2. [Available Methods](#codes-methods)
+    3. [Methods for Videos](#method-videos)
+        1. [Videos Create](#method-videos-create)
+        2. [Videos Update Single](#method-videos-update)
+        3. [Videos Update Many](#method-videos-update-bulk)
+        4. [Videos Delete](#method-videos-delete)
+        5. [Videos Index / Search](#method-videos-index)
+        6. [Videos Count](#method-videos-count)
+        7. [Videos Get Single](#method-videos-get)
+        8. [Videos Get Many](#method-videos-get-bulk)
+        9. [Videos Get Stats](#method-videos-stats)
+        10. [Videos Get Stats of Many](#method-videos-stats-bulk)
+        11. [Videos Download Video file](#method-videos-download-video)
+        12. [Videos Download Snapshot file](#method-videos-download-image)
+        13. [Videos Push to](#method-videos-push)
+        14. [Videos Apply Effect](#method-videos-effects-apply)
+        15. [Videos Apply Meta Profile](#method-videos-meta-apply)
+        16. [Videos Analytics](#method-videos-analytics)
+    4. [Methods for Streams](#method-streams)
+        1. [Streams Create](#method-streams-create)
+        2. [Streams Delete](#method-streams-delete)
+        3. [Streams Index / Search](#method-streams-index)
+        4. [Streams Get Data](#method-streams-get)
+        5. [Streams Download Video file](#method-streams-download-video)
+        6. [Streams Download Snapshot file](#method-streams-download-image)
+        7. [Streams Push to](#method-streams-push)
+        8. [Streams Attach Video](#method-streams-attach-video)
+        9. [Streams Attach Snapshot](#method-streams-attach-image)
+        10. [Streams Attach Subtitle](#method-streams-attach-subtitle)
+        11. [Streams Bind](#method-streams-bind)
+    5. [Methods for Authtokens](#method-authtokens)
+        1. [Authtokens Create](#method-authtokens-create)
+        2. [Authtokens Get](#method-authtokens-get)
+        3. [Authtokens Update](#method-authtokens-update)
+        4. [Authtokens Delete](#method-authtokens-delete)
+    6. [Methods for Application](#method-application)
+        1. [Application Get](#method-application-get)
+        2. [Application Update](#method-application-update)
+        3. [Application Stats](#method-application-stats)
+    7. [Methods for Effect Profiles](#method-effectprofiles)
+        1. [Effect Profiles Create](#method-effectprofiles-create)
+        2. [Effect Profiles Index / Search](#method-effectprofiles-index)
+        3. [Effect Profiles Get](#method-effectprofiles-get)
+        4. [Effect Profiles Update](#method-effectprofiles-update)
+        5. [Effect Profiles Delete](#method-effectprofiles-delete)
+    8. [Methods for Effect Profile Processes](#method-effectprofilesprocess)
+        1. [Effect Profile Process Create Filter](#method-effectprofilesprocess-filter-create)
+        2. [Effect Profile Process Create Watermark](#method-effectprofilesprocess-watermark-create)
+        3. [Effect Profile Process Edit Watermark](#method-effectprofilesprocess-watermark-edit)
+        4. [Effect Profile Process Index](#method-effectprofilesprocess-index)
+        5. [Effect Profile Process Get](#method-effectprofilesprocess-get)
+        6. [Effect Profile Process Delete](#method-effectprofilesprocess-delete)
+    9. [Methods for Meta Profiles](#method-metaprofiles)
+        1. [Meta Profiles Create](#method-metaprofiles-create)
+        2. [Meta Profiles Index](#method-metaprofiles-index)
+        3. [Meta Profiles Get](#method-metaprofiles-get)
+        4. [Meta Profiles Delete](#method-metaprofiles-delete)
+    10. [Methods for Meta Profile Processes](#method-metaprofilesprocess)
+        1. [Meta Profile Create Video Analysis](#method-metaprofilesprocess-video-analysis-create)
+        2. [Meta Profile Create Audio Transcription](#method-metaprofilesprocess-audio-transcription-create)
+        3. [Meta Profile Create NSFW Filter](#method-metaprofilesprocess-nsfw-create)
+        4. [Meta Profile Process Index](#method-metaprofilesprocess-index)
+        5. [Meta Profile Process Get](#method-metaprofilesprocess-get)
+        6. [Meta Profile Process Delete](#method-metaprofilesprocess-delete)
+    11. [Methods for Webhooks](#method-webhooks)
+        1. [Webhooks Create](#method-webhooks-create)
+        2. [Webhooks Confirm](#method-webhooks-confirm)
+        3. [Webhooks Delete](#method-webhooks-delete)
+    12. [Methods for Analytics](#method-analytics)
+        1. [Analytics Get](#method-analytics-get)
+5. [Useful](#useful)
+    1. [Using with Docker](#docker)
+    2. [Testing Webhooks](#testing-webhooks)
+6. [License](#license)
 
-## Client-Side Integration
+## Why Ziggeo's PHP Server Side SDK? <a name="why-us"></a>
+
+[Ziggeo](https://ziggeo.com) is a powerfull, whitelabel video SAAS with a goal to help people with their video revolution. And what better way to do it than with an award winning multimedia API.
+
+This server side SDK is designed to help you ease the communication with Ziggeo API. In that it allows you to privately communicate between your server and our server through requests of what you want to happen.
+
+It offers you pre-built functionality to call and manipulate and there are demos in /demos/ directory for you to check out and use as starting point.
+
+### Who it is for?
+
+Do you have a system that requires calls to be made which should not be seen on client side?
+
+Want to have an easier time handling the media as it comes to your server?
+
+Want something that is simple and easy to use?
+
+You need some powerful features high end video services provide?
+
+If any of the above is "Yes" then you are in the right place as this SDK is for you!
+
+## Prerequisites <a name="prerequisites"></a>
+
+### Download <a name="download"></a>
+
+You will want to either download the SDK zip file or to pull it in as git repository into your own project.
+
+### How to use <a name="how-to-use"></a>
+
+To start using the PHP SDK you would just include the Ziggeo.php into your code and initialize the Ziggeo class with application token, private token and encryption token. All of these are found within the Ziggeo application once you log into your account, under Overview page.
+
+### Dependencies<a name="dependencies"></a>
+
+If you are using Auth tokens you would need to install PHPSeclib library, at least for the client auth tokens to be created.
+
+If you are using Composer, you would do the following steps:
+1. Run `composer require phpseclib/phpseclib` within the folder
+2. Edit the Ziggeo.php file and add `require_once 'vendor/autoload.php';` at the very top.
+
+## Client-Side Integration<a name="codes-client-side"></a>
 
 For the client-side integration, you need to add these assets to your html file:
 
@@ -38,7 +157,797 @@ To embed a player for an existing video, add:
 
 For the full documentation, please visit [ziggeo.com](https://ziggeo.com/docs).
 
-## Docker
+
+## Server-Side Integration<a name="codes-server-side"></a>
+
+### Initialize Ziggeo class in your code<a name="codes-init"></a>
+
+You can integrate the Server SDK as follows:
+
+```php 
+<?php require_once('./ziggeo/Ziggeo.php');
+$ziggeo = new Ziggeo('*app_token*', '*private_key*', '*encryption_key*', *config*); ?> 
+```
+
+Config is optional and if not specified (recommended), the Config.php file (/classes/ZiggeoConfig.php) will be used instead.
+
+
+### Available Methods<a name="codes-methods"></a>
+
+Currently available methods are branched off within different categories:
+1. Videos
+2. Streams
+3. Applications
+4. Webhooks
+5. Analytics
+6. Authtokens
+7. Effect Profiles
+8. Meta Profiles
+
+Each of this sections has their own actions and they are explained bellow
+
+
+### Videos<a name="method-videos"></a>
+
+The videos resource allows you to access all single videos. Each video may contain more than one stream. 
+
+
+#### Create <a name="method-videos-create"></a>
+ 
+Create a new video. 
+
+```php 
+$ziggeo->videos()->create($arguments = array()) 
+``` 
+ 
+Arguments 
+- file: *Video file to be uploaded* 
+- min_duration: *Minimal duration of video* 
+- max_duration: *Maximal duration of video* 
+- tags: *Video Tags* 
+- key: *Unique (optional) name of video* 
+- volatile: *Automatically removed this video if it remains empty* 
+
+
+#### Update <a name="method-videos-update"></a>
+ 
+Update single video by token or key. 
+
+```php 
+$ziggeo->videos()->update($token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- min_duration: *Minimal duration of video* 
+- max_duration: *Maximal duration of video* 
+- tags: *Video Tags* 
+- key: *Unique (optional) name of video* 
+- volatile: *Automatically removed this video if it remains empty* 
+- expiration_days: *After how many days will this video be deleted* 
+- expire_on: *On which date will this video be deleted. String in ISO 8601 format: YYYY-MM-DD* 
+
+
+#### Update Bulk <a name="method-videos-update-bulk"></a>
+ 
+Update multiple videos by token or key. 
+
+```php 
+$ziggeo->videos()->update_bulk($arguments = array()) 
+``` 
+ 
+Arguments 
+- tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).* 
+- min_duration: *Minimal duration of video* 
+- max_duration: *Maximal duration of video* 
+- tags: *Video Tags* 
+- volatile: *Automatically removed this video if it remains empty* 
+- expiration_days: *After how many days will this video be deleted* 
+- expire_on: *On which date will this video be deleted. String in ISO 8601 format: YYYY-MM-DD* 
+
+
+#### Delete <a name="method-videos-delete"></a>
+ 
+Delete a single video by token or key. 
+
+```php 
+$ziggeo->videos()->delete($token_or_key) 
+``` 
+
+
+#### Index <a name="method-videos-index"></a>
+ 
+Query an array of videos (will return at most 50 videos by default). Newest videos come first, unless `reverse` is set to true.
+
+This will return complete video data of each video (if any are found matching your query)
+
+```php 
+$ziggeo->videos()->index($arguments = array()) 
+``` 
+
+Arguments 
+- limit: *Limit the number of returned videos. Can be set up to 100.* 
+- skip: *Skip the first [n] entries.* 
+- reverse: *Reverse the order in which videos are returned.* 
+- states: *Filter videos by state* 
+- tags: *Filter the search result to certain tags, encoded as a comma-separated string* 
+
+
+#### Count <a name="method-videos-count"></a>
+ 
+Get the number of videos that you would find using a search query. Useful way to find out the number of videos without calling index until you reach the end.
+
+```php 
+$ziggeo->videos()->count($arguments = array()) 
+``` 
+ 
+Arguments 
+- states: *Filter videos by state* 
+- tags: *Filter the search result to certain tags, encoded as a comma-separated string* 
+
+
+#### Get <a name="method-videos-get"></a>
+ 
+Get a single video by token or key.
+
+```php 
+$ziggeo->videos()->get($token_or_key) 
+```
+
+
+#### Get Bulk <a name="method-videos-get-bulk"></a>
+
+Get multiple videos by tokens or keys.
+
+```php 
+$ziggeo->videos()->get_bulk($arguments = array()) 
+```
+
+Arguments 
+- tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).* 
+
+
+#### Get Stats <a name="method-videos-stats"></a>
+ 
+Get the video's stats 
+
+```php 
+$ziggeo->videos()->get_stats($token_or_key) 
+``` 
+
+
+#### Stats Bulk<a name="method-videos-stats-bulk"></a>
+
+Get stats for multiple videos by tokens or keys. 
+
+```php 
+$ziggeo->videos()->stats_bulk($arguments = array()) 
+``` 
+
+Arguments 
+- tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).* 
+- summarize: *Boolean. Set it to TRUE to get the stats summarized. Set it to FALSE to get the stats for each video in a separate array. Default: TRUE.* 
+
+
+#### Download Video <a name="method-videos-download-video"></a>
+ 
+Download the video data file 
+
+```php 
+$ziggeo->videos()->download_video($token_or_key) 
+```
+
+
+#### Download Image <a name="method-videos-download-image"></a>
+ 
+Download the image data file 
+
+```php 
+$ziggeo->videos()->download_image($token_or_key) 
+``` 
+
+
+#### Push To Service <a name="method-videos-push"></a>
+ 
+Push a video to a provided push service. 
+
+```php 
+$ziggeo->videos()->push_to_service($token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- pushservicetoken: *Push Services's token (from the Push Services configured for the app)* 
+
+
+#### Apply Effect <a name="method-videos-effects-apply"></a>
+ 
+Apply an effect profile to a video. 
+
+```php 
+$ziggeo->videos()->apply_effect($token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- effectprofiletoken: *Effect Profile token (from the Effect Profiles configured for the app)* 
+
+
+#### Apply Meta <a name="method-videos-meta-apply"></a>
+ 
+Apply a meta profile to a video. 
+
+```php 
+$ziggeo->videos()->apply_meta($token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- metaprofiletoken: *Meta Profile token (from the Meta Profiles configured for the app)* 
+
+
+#### Analytics <a name="method-videos-analytics"></a>
+ 
+Get analytics for a specific videos with the given params 
+
+```php 
+$ziggeo->videos()->analytics($token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- from: *A UNIX timestamp in microseconds used as the start date of the query* 
+- to: *A UNIX timestamp in microseconds used as the end date of the query* 
+- date: *A UNIX timestamp in microseconds to retrieve data from a single date. If set, it overwrites the from and to params.* 
+- query: *The query you want to run. It can be one of the following: device_views_by_os, device_views_by_date, total_plays_by_country, full_plays_by_country, total_plays_by_hour, full_plays_by_hour, total_plays_by_browser, full_plays_by_browser* 
+
+
+### Streams <a name="method-streams"></a>
+
+The streams resource allows you to directly access all streams associated with a single video. 
+
+
+#### Create <a name="method-streams-create"></a>
+ 
+Create a new stream 
+
+```php 
+$ziggeo->streams()->create($video_token_or_key, $arguments = array()) 
+``` 
+
+Arguments 
+- file: *Video file to be uploaded* 
+
+
+#### Delete <a name="method-streams-delete"></a>
+ 
+Delete the stream 
+
+```php 
+$ziggeo->streams()->delete($video_token_or_key, $token_or_key) 
+``` 
+
+
+#### Index <a name="method-streams-index"></a>
+ 
+Return all streams associated with a video 
+
+```php 
+$ziggeo->streams()->index($video_token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- states: *Filter streams by state* 
+
+
+#### Get <a name="method-streams-get"></a>
+
+Get a single stream 
+
+```php 
+$ziggeo->streams()->get($video_token_or_key, $token_or_key) 
+``` 
+
+
+#### Download Video <a name="method-streams-download-video"></a>
+ 
+Download the video data associated with the stream 
+
+```php 
+$ziggeo->streams()->download_video($video_token_or_key, $token_or_key) 
+``` 
+
+
+#### Download Image <a name="method-streams-download-image"></a>
+
+Download the image data associated with the stream 
+
+```php 
+$ziggeo->streams()->download_image($video_token_or_key, $token_or_key) 
+``` 
+
+
+#### Push To Service <a name="method-streams-push"></a>
+ 
+Push a stream to a provided push service. 
+
+```php 
+$ziggeo->streams()->push_to_service($video_token_or_key, $token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- pushservicetoken: *Push Services's token (from the Push Services configured for the app)* 
+
+
+#### Attach Video <a name="method-streams-attach-video"></a>
+ 
+Attaches a video to a new stream 
+
+```php 
+$ziggeo->streams()->attach_video($video_token_or_key, $token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- file: *Video file to be attached* 
+
+
+#### Attach Image <a name="method-streams-attach-image"></a>
+ 
+Attaches an image to a new stream 
+
+```php 
+$ziggeo->streams()->attach_image($video_token_or_key, $token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- file: *Image file to be attached* 
+
+
+#### Attach Subtitle <a name="method-streams-attach-subtitle"></a>
+ 
+Attaches a video to a new stream 
+
+```php 
+$ziggeo->streams()->attach_subtitle($video_token_or_key, $token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- lang: *Subtitle language* 
+- label: *Subtitle reference* 
+- data: *Actual subtitle* 
+
+
+#### Bind <a name="method-streams-bind"></a>
+ 
+Closes and submits the stream 
+
+```php 
+$ziggeo->streams()->bind($video_token_or_key, $token_or_key, $arguments = array()) 
+``` 
+
+
+
+### Authtokens <a name="method-authtokens"></a>
+
+The auth token resource allows you to manage authorization settings for video objects. 
+ 
+
+#### Create <a name="method-authtokens-create"></a>
+
+Create a new auth token. 
+
+```php 
+$ziggeo->authtokens()->create($arguments = array()) 
+``` 
+
+Arguments 
+- volatile: *Will this object automatically be deleted if it remains empty?* 
+- hidden: *If hidden, the token cannot be used directly.* 
+- expiration_date: *Expiration date for the auth token* 
+- usage_experitation_time: *Expiration time per session* 
+- session_limit: *Maximal number of sessions* 
+- grants: *Permissions this tokens grants* 
+
+
+#### Get <a name="method-authtokens-get"></a>
+
+Get a single auth token details by token. 
+
+```php 
+$ziggeo->authtokens()->get($token) 
+``` 
+
+
+#### Update <a name="method-authtokens-update"></a>
+ 
+Update single auth token by token. 
+
+```php 
+$ziggeo->authtokens()->update($token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- volatile: *Will this object automatically be deleted if it remains empty?* 
+- hidden: *If hidden, the token cannot be used directly.* 
+- expiration_date: *Expiration date for the auth token* 
+- usage_experitation_time: *Expiration time per session* 
+- session_limit: *Maximal number of sessions* 
+- grants: *Permissions this tokens grants* 
+
+
+#### Delete <a name="method-authtokens-delete"></a>
+ 
+Delete a single auth token by token. 
+
+```php 
+$ziggeo->authtokens()->delete($token_or_key) 
+``` 
+
+
+
+### Application <a name="method-application"></a>
+
+The application token resource allows you to manage your application. 
+
+
+#### Get <a name="method-application-get"></a>
+ 
+Read application. 
+
+```php 
+$ziggeo->application()->get() 
+``` 
+
+
+#### Update <a name="method-application-update"></a>
+ 
+Update application. 
+
+```php 
+$ziggeo->application()->update($arguments = array()) 
+``` 
+
+Arguments 
+- volatile: *Will this object automatically be deleted if it remains empty?* 
+- name: *Name of the application* 
+- auth_token_required_for_create: *Require auth token for creating videos* 
+- auth_token_required_for_update: *Require auth token for updating videos* 
+- auth_token_required_for_read: *Require auth token for reading videos* 
+- auth_token_required_for_destroy: *Require auth token for deleting videos* 
+- client_can_index_videos: *Client is allowed to perform the index operation* 
+- client_cannot_access_unaccepted_videos: *Client cannot view unaccepted videos* 
+- enable_video_subpages: *Enable hosted video pages* 
+
+
+#### Get Stats <a name="method-application-stats"></a>
+ 
+Read application stats 
+
+```php 
+$ziggeo->application()->get_stats($arguments = array()) 
+``` 
+ 
+Arguments 
+- period: *Optional. Can be 'year' or 'month'.* 
+
+
+### EffectProfiles <a name="method-effectprofiles"></a>
+
+The effect profiles resource allows you to access and create effect profiles for your app. Each effect profile may contain one process or more. 
+ 
+
+#### Create <a name="method-effectprofiles-create"></a>
+ 
+Create a new effect profile. 
+
+```php 
+$ziggeo->effectProfiles()->create($arguments = array()) 
+``` 
+ 
+Arguments 
+- key: *Effect profile key.* 
+- title: *Effect profile title.* 
+- default_effect: *Boolean. If TRUE, sets an effect profile as default. If FALSE, removes the default status for the given effect* 
+
+
+#### Index <a name="method-effectprofiles-index"></a>
+ 
+Get list of effect profiles. 
+
+```php 
+$ziggeo->effectProfiles()->index($arguments = array()) 
+``` 
+ 
+Arguments 
+- limit: *Limit the number of returned effect profiles. Can be set up to 100.* 
+- skip: *Skip the first [n] entries.* 
+- reverse: *Reverse the order in which effect profiles are returned.* 
+
+
+#### Get <a name="method-effectprofiles-get"></a>
+ 
+Get a single effect profile 
+
+```php 
+$ziggeo->effectProfiles()->get($token_or_key) 
+``` 
+
+
+#### Update <a name="method-effectprofiles-update"></a>
+ 
+Updates an effect profile. 
+
+```php 
+$ziggeo->effectProfiles()->update($token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- default_effect: *Boolean. If TRUE, sets an effect profile as default. If FALSE, removes the default status for the given effect* 
+
+
+#### Delete <a name="method-effectprofiles-delete"></a>
+ 
+Delete the effect profile 
+
+```php 
+$ziggeo->effectProfiles()->delete($token_or_key) 
+``` 
+
+
+
+### EffectProfileProcess <a name="method-effectprofilesprocess"></a>
+
+The process resource allows you to directly access all process associated with a single effect profile. 
+
+
+#### Create Filter Process <a name="method-effectprofilesprocess-filter-create"></a>
+ 
+Create a new filter effect process 
+
+```php 
+$ziggeo->effectProfileProcess()->create_filter_process($effect_token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- effect: *Effect to be applied in the process* 
+
+
+#### Create Watermark Process <a name="method-effectprofilesprocess-watermark-create"></a>
+ 
+Attaches an image to a new stream 
+
+```php 
+$ziggeo->effectProfileProcess()->create_watermark_process($effect_token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- file: *Image file to be attached* 
+- vertical_position: *Specify the vertical position of your watermark (a value between 0.0 and 1.0)* 
+- horizontal_position: *Specify the horizontal position of your watermark (a value between 0.0 and 1.0)* 
+- video_scale: *Specify the image scale of your watermark (a value between 0.0 and 1.0)* 
+
+
+#### Edit Watermark Process <a name="method-effectprofilesprocess-watermark-edit"></a>
+ 
+Edits an existing watermark process. 
+
+```php 
+$ziggeo->effectProfileProcess()->edit_watermark_process($effect_token_or_key, $token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- file: *Image file to be attached* 
+- vertical_position: *Specify the vertical position of your watermark (a value between 0.0 and 1.0)* 
+- horizontal_position: *Specify the horizontal position of your watermark (a value between 0.0 and 1.0)* 
+- video_scale: *Specify the image scale of your watermark (a value between 0.0 and 1.0)* 
+
+
+#### Index <a name="method-effectprofilesprocess-index"></a>
+ 
+Return all processes associated with a effect profile 
+
+```php 
+$ziggeo->effectProfileProcess()->index($effect_token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- states: *Filter streams by state* 
+
+
+#### Get <a name="method-effectprofilesprocess-get"></a>
+ 
+Get a single process 
+
+```php 
+$ziggeo->effectProfileProcess()->get($effect_token_or_key, $token_or_key) 
+``` 
+
+
+#### Delete <a name="method-effectprofilesprocess-delete"></a>
+ 
+Delete the process 
+
+```php 
+$ziggeo->effectProfileProcess()->delete($effect_token_or_key, $token_or_key) 
+``` 
+
+
+
+### MetaProfiles <a name="method-metaprofiles"></a>
+
+The meta profiles resource allows you to access and create meta profiles for your app. Each meta profile may contain one process or more. 
+ 
+
+#### Create <a name="method-metaprofiles-create"></a>
+ 
+Create a new meta profile. 
+
+```php 
+$ziggeo->metaProfiles()->create($arguments = array()) 
+``` 
+ 
+Arguments 
+- key: *Meta Profile profile key.* 
+- title: *Meta Profile profile title.* 
+
+
+#### Index <a name="method-metaprofiles-index"></a>
+ 
+Get list of meta profiles. 
+
+```php 
+$ziggeo->metaProfiles()->index($arguments = array()) 
+``` 
+ 
+Arguments 
+- limit: *Limit the number of returned meta profiles. Can be set up to 100.* 
+- skip: *Skip the first [n] entries.* 
+- reverse: *Reverse the order in which meta profiles are returned.* 
+
+
+#### Get <a name="method-metaprofiles-get"></a>
+ 
+Get a single meta profile 
+
+```php 
+$ziggeo->metaProfiles()->get($token_or_key) 
+``` 
+
+
+#### Delete <a name="method-metaprofiles-delete"></a>
+ 
+Delete the meta profile 
+
+```php 
+$ziggeo->metaProfiles()->delete($token_or_key) 
+``` 
+
+
+
+### MetaProfileProcess <a name="method-metaprofilesprocess"></a>
+
+The process resource allows you to directly access all process associated with a single meta profile. 
+
+#### Create Video Analysis Process <a name="method-metaprofilesprocess-video-analysis-create"></a>
+ 
+Create a new video analysis meta process 
+
+```php 
+$ziggeo->metaProfileProcess()->create_video_analysis_process($meta_token_or_key) 
+```
+
+
+#### Create Audio Transcription Process <a name="method-metaprofilesprocess-audio-transcription-create"></a>
+ 
+Create a new audio transcription meta process 
+
+```php 
+$ziggeo->metaProfileProcess()->create_audio_transcription_process($meta_token_or_key) 
+``` 
+
+
+#### Create Nsfw Process <a name="method-metaprofilesprocess-nsfw-create"></a>
+ 
+Create a new nsfw filter meta process 
+
+```php 
+$ziggeo->metaProfileProcess()->create_nsfw_process($meta_token_or_key, $arguments = array()) 
+``` 
+ 
+Arguments 
+- nsfw_action: *One of the following three: approve, reject, nothing.* 
+
+
+#### Index <a name="method-metaprofilesprocess-index"></a>
+ 
+Return all processes associated with a meta profile 
+
+```php 
+$ziggeo->metaProfileProcess()->index($meta_token_or_key) 
+``` 
+
+
+#### Get <a name="method-metaprofilesprocess-get"></a>
+ 
+Get a single process 
+
+```php 
+$ziggeo->metaProfileProcess()->get($meta_token_or_key, $token_or_key) 
+``` 
+ 
+
+#### Delete <a name="method-metaprofilesprocess-delete"></a>
+ 
+Delete the process 
+
+```php 
+$ziggeo->metaProfileProcess()->delete($meta_token_or_key, $token_or_key) 
+``` 
+
+
+### Webhooks <a name="method-webhooks"></a>
+
+The webhooks resource allows you to create or delete webhooks related to a given application. 
+ 
+
+#### Create <a name="method-webhooks-create"></a>
+ 
+Create a new webhook for the given url to catch the given events. 
+
+```php 
+$ziggeo->webhooks()->create($arguments = array()) 
+``` 
+ 
+Arguments 
+- target_url: *The url that will catch the events* 
+- encoding: *Data encoding to be used by the webhook to send the events.* 
+- events: *Comma-separated list of the events the webhook will catch. They must be valid webhook type events.* 
+
+
+#### Confirm <a name="method-webhooks-confirm"></a>
+ 
+Confirm a webhook using its ID and the corresponding validation code. 
+
+```php 
+$ziggeo->webhooks()->confirm($arguments = array()) 
+``` 
+ 
+Arguments 
+- webhook_id: *Webhook ID that's returned in the creation call.* 
+- validation_code: *Validation code that is sent to the webhook when created.* 
+
+
+#### Delete <a name="method-webhooks-delete"></a>
+ 
+Delete a webhook using its URL. 
+
+```php 
+$ziggeo->webhooks()->delete($arguments = array()) 
+``` 
+ 
+Arguments 
+- target_url: *The url that will catch the events* 
+
+
+### Analytics <a name="method-analytics"></a>
+
+The analytics resource allows you to access the analytics for the given application 
+ 
+
+#### Get <a name="method-analytics-get"></a>
+ 
+Get analytics for the given params 
+
+```php 
+$ziggeo->analytics()->get($arguments = array()) 
+``` 
+ 
+Arguments 
+- from: *A UNIX timestamp in microseconds used as the start date of the query* 
+- to: *A UNIX timestamp in microseconds used as the end date of the query* 
+- date: *A UNIX timestamp in microseconds to retrieve data from a single date. If set, it overwrites the from and to params.* 
+- query: *The query you want to run. It can be one of the following: device_views_by_os, device_views_by_date, total_plays_by_country, full_plays_by_country, total_plays_by_hour, full_plays_by_hour, total_plays_by_browser, full_plays_by_browser* 
+
+## Useful <a name="useful"></a>
+
+This section includes details that are not really needed however can be very useful for your producion setup or for tests.
+
+### Using Docker <a name="docker"></a>
 
 If you prefer to run this SDK and its demos using [Docker](https://docker.com), build the image as follows:
 
@@ -52,7 +961,7 @@ docker run --rm ziggeo-php /ziggeo/demos/list_all_videos.php --token xxx --priva
 ```
 
 
-## Webhooks
+### Webhooks <a name="testing-webhooks"></a>
 
 While you technically do not need this SDK to receive webhooks, we have included a demo for your convenience.
 
@@ -79,797 +988,8 @@ The output will then provide you with a particular publicly accessible domain na
 http://543e13e6.ngrok.io -> localhost:12345
 ```
 
-## Server-Side Integration
 
-You can integrate the Server SDK as follows:
-
-```php 
-<?php require_once('./ziggeo/Ziggeo.php');
-$ziggeo = new Ziggeo('*token*', '*private_key*', '*encryption_key*', *config*); ?> 
-```
-
-
-## Server-Side Methods
-
-### Videos  
-
-The videos resource allows you to access all single videos. Each video may contain more than one stream. 
- 
-
-#### Index 
- 
-Query an array of videos (will return at most 50 videos by default). Newest videos come first. 
-
-```php 
-$ziggeo->videos()->index($arguments = array()) 
-``` 
- 
-Arguments 
-- limit: *Limit the number of returned videos. Can be set up to 100.* 
-- skip: *Skip the first [n] entries.* 
-- reverse: *Reverse the order in which videos are returned.* 
-- states: *Filter videos by state* 
-- tags: *Filter the search result to certain tags, encoded as a comma-separated string* 
-
-
-#### Count 
- 
-Get the video count for the application. 
-
-```php 
-$ziggeo->videos()->count($arguments = array()) 
-``` 
- 
-Arguments 
-- states: *Filter videos by state* 
-- tags: *Filter the search result to certain tags, encoded as a comma-separated string* 
-
-
-#### Get 
- 
-Get a single video by token or key. 
-
-```php 
-$ziggeo->videos()->get($token_or_key) 
-``` 
- 
-
-
-#### Get Bulk 
- 
-Get multiple videos by tokens or keys. 
-
-```php 
-$ziggeo->videos()->get_bulk($arguments = array()) 
-``` 
- 
-Arguments 
-- tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).* 
-
-
-#### Stats Bulk 
- 
-Get stats for multiple videos by tokens or keys. 
-
-```php 
-$ziggeo->videos()->stats_bulk($arguments = array()) 
-``` 
- 
-Arguments 
-- tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).* 
-- summarize: *Boolean. Set it to TRUE to get the stats summarized. Set it to FALSE to get the stats for each video in a separate array. Default: TRUE.* 
-
-
-#### Download Video 
- 
-Download the video data file 
-
-```php 
-$ziggeo->videos()->download_video($token_or_key) 
-``` 
- 
-
-
-#### Download Image 
- 
-Download the image data file 
-
-```php 
-$ziggeo->videos()->download_image($token_or_key) 
-``` 
- 
-
-
-#### Get Stats 
- 
-Get the video's stats 
-
-```php 
-$ziggeo->videos()->get_stats($token_or_key) 
-``` 
- 
-
-
-#### Push To Service 
- 
-Push a video to a provided push service. 
-
-```php 
-$ziggeo->videos()->push_to_service($token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- pushservicetoken: *Push Services's token (from the Push Services configured for the app)* 
-
-
-#### Apply Effect 
- 
-Apply an effect profile to a video. 
-
-```php 
-$ziggeo->videos()->apply_effect($token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- effectprofiletoken: *Effect Profile token (from the Effect Profiles configured for the app)* 
-
-
-#### Apply Meta 
- 
-Apply a meta profile to a video. 
-
-```php 
-$ziggeo->videos()->apply_meta($token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- metaprofiletoken: *Meta Profile token (from the Meta Profiles configured for the app)* 
-
-
-#### Update 
- 
-Update single video by token or key. 
-
-```php 
-$ziggeo->videos()->update($token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- min_duration: *Minimal duration of video* 
-- max_duration: *Maximal duration of video* 
-- tags: *Video Tags* 
-- key: *Unique (optional) name of video* 
-- volatile: *Automatically removed this video if it remains empty* 
-- expiration_days: *After how many days will this video be deleted* 
-- expire_on: *On which date will this video be deleted. String in ISO 8601 format: YYYY-MM-DD* 
-
-
-#### Update Bulk 
- 
-Update multiple videos by token or key. 
-
-```php 
-$ziggeo->videos()->update_bulk($arguments = array()) 
-``` 
- 
-Arguments 
-- tokens_or_keys: *Comma-separated list with the desired videos tokens or keys (Limit: 100 tokens or keys).* 
-- min_duration: *Minimal duration of video* 
-- max_duration: *Maximal duration of video* 
-- tags: *Video Tags* 
-- volatile: *Automatically removed this video if it remains empty* 
-- expiration_days: *After how many days will this video be deleted* 
-- expire_on: *On which date will this video be deleted. String in ISO 8601 format: YYYY-MM-DD* 
-
-
-#### Delete 
- 
-Delete a single video by token or key. 
-
-```php 
-$ziggeo->videos()->delete($token_or_key) 
-``` 
- 
-
-
-#### Create 
- 
-Create a new video. 
-
-```php 
-$ziggeo->videos()->create($arguments = array()) 
-``` 
- 
-Arguments 
-- file: *Video file to be uploaded* 
-- min_duration: *Minimal duration of video* 
-- max_duration: *Maximal duration of video* 
-- tags: *Video Tags* 
-- key: *Unique (optional) name of video* 
-- volatile: *Automatically removed this video if it remains empty* 
-
-
-#### Analytics 
- 
-Get analytics for a specific videos with the given params 
-
-```php 
-$ziggeo->videos()->analytics($token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- from: *A UNIX timestamp in microseconds used as the start date of the query* 
-- to: *A UNIX timestamp in microseconds used as the end date of the query* 
-- date: *A UNIX timestamp in microseconds to retrieve data from a single date. If set, it overwrites the from and to params.* 
-- query: *The query you want to run. It can be one of the following: device_views_by_os, device_views_by_date, total_plays_by_country, full_plays_by_country, total_plays_by_hour, full_plays_by_hour, total_plays_by_browser, full_plays_by_browser* 
-
-
-### Streams  
-
-The streams resource allows you to directly access all streams associated with a single video. 
- 
-
-#### Index 
- 
-Return all streams associated with a video 
-
-```php 
-$ziggeo->streams()->index($video_token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- states: *Filter streams by state* 
-
-
-#### Get 
- 
-Get a single stream 
-
-```php 
-$ziggeo->streams()->get($video_token_or_key, $token_or_key) 
-``` 
- 
-
-
-#### Download Video 
- 
-Download the video data associated with the stream 
-
-```php 
-$ziggeo->streams()->download_video($video_token_or_key, $token_or_key) 
-``` 
- 
-
-
-#### Download Image 
- 
-Download the image data associated with the stream 
-
-```php 
-$ziggeo->streams()->download_image($video_token_or_key, $token_or_key) 
-``` 
- 
-
-
-#### Push To Service 
- 
-Push a stream to a provided push service. 
-
-```php 
-$ziggeo->streams()->push_to_service($video_token_or_key, $token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- pushservicetoken: *Push Services's token (from the Push Services configured for the app)* 
-
-
-#### Delete 
- 
-Delete the stream 
-
-```php 
-$ziggeo->streams()->delete($video_token_or_key, $token_or_key) 
-``` 
- 
-
-
-#### Create 
- 
-Create a new stream 
-
-```php 
-$ziggeo->streams()->create($video_token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- file: *Video file to be uploaded* 
-
-
-#### Attach Image 
- 
-Attaches an image to a new stream 
-
-```php 
-$ziggeo->streams()->attach_image($video_token_or_key, $token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- file: *Image file to be attached* 
-
-
-#### Attach Video 
- 
-Attaches a video to a new stream 
-
-```php 
-$ziggeo->streams()->attach_video($video_token_or_key, $token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- file: *Video file to be attached* 
-
-
-#### Attach Subtitle 
- 
-Attaches a video to a new stream 
-
-```php 
-$ziggeo->streams()->attach_subtitle($video_token_or_key, $token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- lang: *Subtitle language* 
-- label: *Subtitle reference* 
-- data: *Actual subtitle* 
-
-
-#### Bind 
- 
-Closes and submits the stream 
-
-```php 
-$ziggeo->streams()->bind($video_token_or_key, $token_or_key, $arguments = array()) 
-``` 
- 
-
-
-### Authtokens  
-
-The auth token resource allows you to manage authorization settings for video objects. 
- 
-
-#### Get 
- 
-Get a single auth token by token. 
-
-```php 
-$ziggeo->authtokens()->get($token) 
-``` 
- 
-
-
-#### Update 
- 
-Update single auth token by token. 
-
-```php 
-$ziggeo->authtokens()->update($token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- volatile: *Will this object automatically be deleted if it remains empty?* 
-- hidden: *If hidden, the token cannot be used directly.* 
-- expiration_date: *Expiration date for the auth token* 
-- usage_experitation_time: *Expiration time per session* 
-- session_limit: *Maximal number of sessions* 
-- grants: *Permissions this tokens grants* 
-
-
-#### Delete 
- 
-Delete a single auth token by token. 
-
-```php 
-$ziggeo->authtokens()->delete($token_or_key) 
-``` 
- 
-
-
-#### Create 
- 
-Create a new auth token. 
-
-```php 
-$ziggeo->authtokens()->create($arguments = array()) 
-``` 
- 
-Arguments 
-- volatile: *Will this object automatically be deleted if it remains empty?* 
-- hidden: *If hidden, the token cannot be used directly.* 
-- expiration_date: *Expiration date for the auth token* 
-- usage_experitation_time: *Expiration time per session* 
-- session_limit: *Maximal number of sessions* 
-- grants: *Permissions this tokens grants* 
-
-
-### Application  
-
-The application token resource allows you to manage your application. 
- 
-
-#### Get 
- 
-Read application. 
-
-```php 
-$ziggeo->application()->get() 
-``` 
- 
-
-
-#### Update 
- 
-Update application. 
-
-```php 
-$ziggeo->application()->update($arguments = array()) 
-``` 
- 
-Arguments 
-- volatile: *Will this object automatically be deleted if it remains empty?* 
-- name: *Name of the application* 
-- auth_token_required_for_create: *Require auth token for creating videos* 
-- auth_token_required_for_update: *Require auth token for updating videos* 
-- auth_token_required_for_read: *Require auth token for reading videos* 
-- auth_token_required_for_destroy: *Require auth token for deleting videos* 
-- client_can_index_videos: *Client is allowed to perform the index operation* 
-- client_cannot_access_unaccepted_videos: *Client cannot view unaccepted videos* 
-- enable_video_subpages: *Enable hosted video pages* 
-
-
-#### Get Stats 
- 
-Read application stats 
-
-```php 
-$ziggeo->application()->get_stats($arguments = array()) 
-``` 
- 
-Arguments 
-- period: *Optional. Can be 'year' or 'month'.* 
-
-
-### EffectProfiles  
-
-The effect profiles resource allows you to access and create effect profiles for your app. Each effect profile may contain one process or more. 
- 
-
-#### Create 
- 
-Create a new effect profile. 
-
-```php 
-$ziggeo->effectProfiles()->create($arguments = array()) 
-``` 
- 
-Arguments 
-- key: *Effect profile key.* 
-- title: *Effect profile title.* 
-- default_effect: *Boolean. If TRUE, sets an effect profile as default. If FALSE, removes the default status for the given effect* 
-
-
-#### Index 
- 
-Get list of effect profiles. 
-
-```php 
-$ziggeo->effectProfiles()->index($arguments = array()) 
-``` 
- 
-Arguments 
-- limit: *Limit the number of returned effect profiles. Can be set up to 100.* 
-- skip: *Skip the first [n] entries.* 
-- reverse: *Reverse the order in which effect profiles are returned.* 
-
-
-#### Get 
- 
-Get a single effect profile 
-
-```php 
-$ziggeo->effectProfiles()->get($token_or_key) 
-``` 
- 
-
-
-#### Delete 
- 
-Delete the effect profile 
-
-```php 
-$ziggeo->effectProfiles()->delete($token_or_key) 
-``` 
- 
-
-
-#### Update 
- 
-Updates an effect profile. 
-
-```php 
-$ziggeo->effectProfiles()->update($token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- default_effect: *Boolean. If TRUE, sets an effect profile as default. If FALSE, removes the default status for the given effect* 
-
-
-### EffectProfileProcess  
-
-The process resource allows you to directly access all process associated with a single effect profile. 
- 
-
-#### Index 
- 
-Return all processes associated with a effect profile 
-
-```php 
-$ziggeo->effectProfileProcess()->index($effect_token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- states: *Filter streams by state* 
-
-
-#### Get 
- 
-Get a single process 
-
-```php 
-$ziggeo->effectProfileProcess()->get($effect_token_or_key, $token_or_key) 
-``` 
- 
-
-
-#### Delete 
- 
-Delete the process 
-
-```php 
-$ziggeo->effectProfileProcess()->delete($effect_token_or_key, $token_or_key) 
-``` 
- 
-
-
-#### Create Filter Process 
- 
-Create a new filter effect process 
-
-```php 
-$ziggeo->effectProfileProcess()->create_filter_process($effect_token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- effect: *Effect to be applied in the process* 
-
-
-#### Create Watermark Process 
- 
-Attaches an image to a new stream 
-
-```php 
-$ziggeo->effectProfileProcess()->create_watermark_process($effect_token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- file: *Image file to be attached* 
-- vertical_position: *Specify the vertical position of your watermark (a value between 0.0 and 1.0)* 
-- horizontal_position: *Specify the horizontal position of your watermark (a value between 0.0 and 1.0)* 
-- video_scale: *Specify the image scale of your watermark (a value between 0.0 and 1.0)* 
-
-
-#### Edit Watermark Process 
- 
-Edits an existing watermark process. 
-
-```php 
-$ziggeo->effectProfileProcess()->edit_watermark_process($effect_token_or_key, $token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- file: *Image file to be attached* 
-- vertical_position: *Specify the vertical position of your watermark (a value between 0.0 and 1.0)* 
-- horizontal_position: *Specify the horizontal position of your watermark (a value between 0.0 and 1.0)* 
-- video_scale: *Specify the image scale of your watermark (a value between 0.0 and 1.0)* 
-
-
-### MetaProfiles  
-
-The meta profiles resource allows you to access and create meta profiles for your app. Each meta profile may contain one process or more. 
- 
-
-#### Create 
- 
-Create a new meta profile. 
-
-```php 
-$ziggeo->metaProfiles()->create($arguments = array()) 
-``` 
- 
-Arguments 
-- key: *Meta Profile profile key.* 
-- title: *Meta Profile profile title.* 
-
-
-#### Index 
- 
-Get list of meta profiles. 
-
-```php 
-$ziggeo->metaProfiles()->index($arguments = array()) 
-``` 
- 
-Arguments 
-- limit: *Limit the number of returned meta profiles. Can be set up to 100.* 
-- skip: *Skip the first [n] entries.* 
-- reverse: *Reverse the order in which meta profiles are returned.* 
-
-
-#### Get 
- 
-Get a single meta profile 
-
-```php 
-$ziggeo->metaProfiles()->get($token_or_key) 
-``` 
- 
-
-
-#### Delete 
- 
-Delete the meta profile 
-
-```php 
-$ziggeo->metaProfiles()->delete($token_or_key) 
-``` 
- 
-
-
-### MetaProfileProcess  
-
-The process resource allows you to directly access all process associated with a single meta profile. 
- 
-
-#### Index 
- 
-Return all processes associated with a meta profile 
-
-```php 
-$ziggeo->metaProfileProcess()->index($meta_token_or_key) 
-``` 
- 
-
-
-#### Get 
- 
-Get a single process 
-
-```php 
-$ziggeo->metaProfileProcess()->get($meta_token_or_key, $token_or_key) 
-``` 
- 
-
-
-#### Delete 
- 
-Delete the process 
-
-```php 
-$ziggeo->metaProfileProcess()->delete($meta_token_or_key, $token_or_key) 
-``` 
- 
-
-
-#### Create Video Analysis Process 
- 
-Create a new video analysis meta process 
-
-```php 
-$ziggeo->metaProfileProcess()->create_video_analysis_process($meta_token_or_key) 
-``` 
- 
-
-
-#### Create Audio Transcription Process 
- 
-Create a new audio transcription meta process 
-
-```php 
-$ziggeo->metaProfileProcess()->create_audio_transcription_process($meta_token_or_key) 
-``` 
- 
-
-
-#### Create Nsfw Process 
- 
-Create a new nsfw filter meta process 
-
-```php 
-$ziggeo->metaProfileProcess()->create_nsfw_process($meta_token_or_key, $arguments = array()) 
-``` 
- 
-Arguments 
-- nsfw_action: *One of the following three: approve, reject, nothing.* 
-
-
-### Webhooks  
-
-The webhooks resource allows you to create or delete webhooks related to a given application. 
- 
-
-#### Create 
- 
-Create a new webhook for the given url to catch the given events. 
-
-```php 
-$ziggeo->webhooks()->create($arguments = array()) 
-``` 
- 
-Arguments 
-- target_url: *The url that will catch the events* 
-- encoding: *Data encoding to be used by the webhook to send the events.* 
-- events: *Comma-separated list of the events the webhook will catch. They must be valid webhook type events.* 
-
-
-#### Confirm 
- 
-Confirm a webhook using its ID and the corresponding validation code. 
-
-```php 
-$ziggeo->webhooks()->confirm($arguments = array()) 
-``` 
- 
-Arguments 
-- webhook_id: *Webhook ID that's returned in the creation call.* 
-- validation_code: *Validation code that is sent to the webhook when created.* 
-
-
-#### Delete 
- 
-Delete a webhook using its URL. 
-
-```php 
-$ziggeo->webhooks()->delete($arguments = array()) 
-``` 
- 
-Arguments 
-- target_url: *The url that will catch the events* 
-
-
-### Analytics  
-
-The analytics resource allows you to access the analytics for the given application 
- 
-
-#### Get 
- 
-Get analytics for the given params 
-
-```php 
-$ziggeo->analytics()->get($arguments = array()) 
-``` 
- 
-Arguments 
-- from: *A UNIX timestamp in microseconds used as the start date of the query* 
-- to: *A UNIX timestamp in microseconds used as the end date of the query* 
-- date: *A UNIX timestamp in microseconds to retrieve data from a single date. If set, it overwrites the from and to params.* 
-- query: *The query you want to run. It can be one of the following: device_views_by_os, device_views_by_date, total_plays_by_country, full_plays_by_country, total_plays_by_hour, full_plays_by_hour, total_plays_by_browser, full_plays_by_browser* 
-
-
-
-
-
-## License
+## License <a name="license"></a>
 
 Copyright (c) 2013-2020 Ziggeo
  
