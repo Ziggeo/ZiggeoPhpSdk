@@ -15,7 +15,6 @@ Globals::$CONFIG = json_decode($_SERVER['argv'][2], TRUE);
 
 require_once(dirname(__FILE__) . "/../../Ziggeo.php");
 
-
 Class ServerApiTestCase extends PHPUnit\Framework\TestCase {
 	
 	protected $ziggeo = NULL;
@@ -29,11 +28,11 @@ Class ServerApiTestCase extends PHPUnit\Framework\TestCase {
 			$this->ziggeo->videos()->delete($video->token);
 	}
 		
-	protected function setUp() {
+	protected function setUp(): void {
 		$this->init();
     }
 
-    protected function tearDown() {
+    protected function tearDown(): void {
     	sleep(15);
     	$this->init();
     }		

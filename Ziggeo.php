@@ -72,6 +72,20 @@ Class Ziggeo {
         return $this->apiConnect;
     }
 
+    private $cdnConnect = NULL;
+
+    function cdnConnect() {
+        if (!@$this->cdnConnect) {
+            $cdn_url = $this->config()->get("cdn_url");
+            $cdn_regions = $this->config()->get("cdn_regions");
+            foreach ($cdn_regions as $key => $value)
+                if (strpos($this->token(), $key) === 0)
+                    $cdn_url = $value;
+            $this->cdnConnect = new ZiggeoConnect($this, $cdn_url, $this->config());
+        }
+        return $this->cdnConnect;
+    }
+
     private $auth = NULL;
 
     function auth() {

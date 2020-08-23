@@ -1,12 +1,13 @@
 <?php
 
 require_once(dirname(__FILE__) . "/../app/ServerApiTestCase.php");
+require_once(dirname(__FILE__) . "/../../classes/ZiggeoException.php");
 
 class VideoStreamsTest extends ServerApiTestCase {
 	
 	protected $video = NULL;
 	
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->video = $this->ziggeo->videos()->create();
     }
@@ -18,10 +19,8 @@ class VideoStreamsTest extends ServerApiTestCase {
 		$this->assertEquals($stream->state_string, "READY");
 	}
 
-	/**
-     * @expectedException ZiggeoException
-     */
 	public function testCreate2() {
+        $this->expectException("ZiggeoException");
 		$stream = $this->ziggeo->streams()->create($this->video->token, array("file" => Globals::$NOVIDEO_FILE));
 	}
 

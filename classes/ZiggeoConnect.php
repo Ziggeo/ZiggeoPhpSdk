@@ -12,7 +12,7 @@ Class ZiggeoConnect {
         $this->baseUrl = $baseUrl;
         $this->config = $config;
         $this->point_zero = 0;
-        
+
         if (version_compare(phpversion(), '5.5.0', '<')) {
             $this->progress_old = true;
         }
@@ -20,6 +20,53 @@ Class ZiggeoConnect {
             $this->progress_old = false;
         }
     }
+
+    public function curlUploadFile($url, $file, $fields) {
+        $fields["file"] =  new cURLFile($file);
+
+        for($i = 0; $i < $this->config->get("resilience_factor"); $i++) {
+
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_FAILONERROR, true);
+
+            if( (ini_get('safe_mode') === 'Off' || ini_get('safe_mode') === false) && ini_get('open_basedir') === '' ) {
+                //we can only make curl follow the redirects if the safe mod is off and open_basedir is not set, otherwise it would throw error
+                curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+            }
+
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+            //curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->config->get("request_timeout"));
+            //curl_setopt($curl, CURLOPT_TIMEOUT, $this->config->get("request_timeout"));
+
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $fields);
+
+            //Check if we should activate progress info output
+            if($this->config->get('info')['progress_show'] === true) {
+                curl_setopt($curl, CURLOPT_PROGRESSFUNCTION, array($this, 'progressHandler'));
+                curl_setopt($curl, CURLOPT_NOPROGRESS, false);
+            }
+
+            curl_exec($curl);
+
+            //At this time both are supported, since later is legacy now soon it will be dropped, so future proofing
+            if(version_compare('5.5.0', PHP_VERSION, '>=') && version_compare( '7.10.8', curl_version(['version']), '>=')) {
+                $response_const = CURLINFO_RESPONSE_CODE;
+            }
+            else {
+                $response_const = CURLINFO_HTTP_CODE;
+            }
+
+            $result = curl_getinfo($curl, $response_const);
+            if ($result >= 200 && $result < 300)
+                return;
+        }
+        throw new ZiggeoException($result, "Upload failed");
+
+    }
+
 
     private function curl($url) {
         $curl = curl_init($this->baseUrl . $url);
@@ -29,21 +76,21 @@ Class ZiggeoConnect {
             //we can only make curl follow the redirects if the safe mod is off and open_basedir is not set, otherwise it would throw error
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         }
-        
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); 
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false); 
+
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->config->get("request_timeout"));
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->config->get("request_timeout"));
         curl_setopt($curl, CURLOPT_USERPWD, $this->application->token() . ":" . $this->application->private_key());
-        
+
         //Check if we should activate progress info output
         if($this->config->get('info')['progress_show'] === true) {
             curl_setopt($curl, CURLOPT_PROGRESSFUNCTION, array($this, 'progressHandler'));
             curl_setopt($curl, CURLOPT_NOPROGRESS, false);
         }
-    
+
         return $curl;
     }
 
@@ -56,14 +103,14 @@ Class ZiggeoConnect {
             $downloaded = $download_size;
             $download_size = $resource;
         }
-    
+
         echo "\n";
         echo 'Runtime: ' . ((float)microtime(true) - (float)$this->point_zero) . ' seconds';
         echo ' Upload status: ' . ($uploaded / $this->config->get('info')['progress_multiplier']) . ' / ' . ($upload_size / $this->config->get('info')['progress_multiplier']) . ' ' . $this->config->get('info')['progress_desc'];
 
         return 0;
     }
-    
+
     private function singleRequest($request_type = 'POST', $url = '', $data) {
 
         $curl = $this->curl($url);
@@ -93,9 +140,9 @@ Class ZiggeoConnect {
         $result_info = [
             //get the last response code
             'response_code' => curl_getinfo($curl, $response_const),
-            //The CONNECT response code 
+            //The CONNECT response code
             'connect_code' => curl_getinfo($curl, CURLINFO_HTTP_CONNECTCODE),
-            //Errno from a connect failure. The number is OS and system specific. 
+            //Errno from a connect failure. The number is OS and system specific.
             'os_code' => curl_getinfo($curl, CURLINFO_OS_ERRNO)
         ];
 
@@ -108,7 +155,7 @@ Class ZiggeoConnect {
 
         //Did an error occur?
         if(curl_errno($curl)) {
-            //error occurred 
+            //error occurred
             $rez['error'] = [
                 'error_number'  => curl_errno($curl),
                 'error_message' => curl_error($curl)
@@ -165,7 +212,7 @@ Class ZiggeoConnect {
     }
 
     function getJSON($url, $data = array(), $assert_state = ZiggeoException::HTTP_STATUS_OK) {
-        return json_decode($this->get($url, $data, $assert_state));
+        return json_decode($this->get($url, $data, $assert_state), TRUE);
     }
 
     function post($url, $data = array(), $assert_states = array(ZiggeoException::HTTP_STATUS_OK, ZiggeoException::HTTP_STATUS_CREATED)) {
@@ -182,7 +229,7 @@ Class ZiggeoConnect {
     }
 
     function postJSON($url, $data = array(), $assert_states = array(ZiggeoException::HTTP_STATUS_OK, ZiggeoException::HTTP_STATUS_CREATED)) {
-        return json_decode($this->post($url, $data, $assert_states));
+        return json_decode($this->post($url, $data, $assert_states), TRUE);
     }
 
     function delete($url, $assert_state = ZiggeoException::HTTP_STATUS_OK) {
@@ -192,6 +239,17 @@ Class ZiggeoConnect {
     }
 
     function deleteJSON($url, $assert_state = ZiggeoException::HTTP_STATUS_OK) {
-        return json_decode($this->delete($url, $assert_state));
+        return json_decode($this->delete($url, $assert_state), TRUE);
+    }
+
+    public function postUploadJSON($url, $scope, $data, $type_key = NULL) {
+        $file = $data["file"];
+        unset($data["file"]);
+        if (@$type_key)
+            $data[$type_key] = array_reverse(explode(".", $file))[0];
+        $result = $this->application->connect()->postJSON($url, $data);
+        $ret = $result[$scope];
+        $this->application->connect()->curlUploadFile($result['url_data']['url'], $file, $result['url_data']['fields']);
+        return $ret;
     }
 }

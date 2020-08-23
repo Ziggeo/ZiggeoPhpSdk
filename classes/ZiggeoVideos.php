@@ -29,11 +29,11 @@ Class ZiggeoVideos {
   }
 
   function download_video($token_or_key) {
-    return $this->application->connect()->get('/v1/videos/' . $token_or_key . '/video');
+    return $this->application->cdnConnect()->get('/v1/videos/' . $token_or_key . '/video');
   }
 
   function download_image($token_or_key) {
-    return $this->application->connect()->get('/v1/videos/' . $token_or_key . '/image');
+    return $this->application->cdnConnect()->get('/v1/videos/' . $token_or_key . '/image');
   }
 
   function get_stats($token_or_key) {
@@ -65,9 +65,12 @@ Class ZiggeoVideos {
   }
 
   function create($data = array()) {
-    if (isset($data['file']))
-      $data['file'] = '@' . $data['file'];
-    return $this->application->connect()->postJSON('/v1/videos/', $data);
+    if (isset($data['file'])) {
+        $result = $this->application->connect()->postUploadJSON("/v1/videos-upload-url/", "video", $data, "video_type");
+        $result['default_stream'] = $this->application->connect()->postJSON('/v1/videos/' . $result['token'] . '/streams/' . $result['default_stream']['token'] . '/confirm-video');
+        return $result;
+    } else
+        return $this->application->connect()->postJSON('/v1/videos/', $data);
   }
 
   function analytics($token_or_key, $data = array()) {

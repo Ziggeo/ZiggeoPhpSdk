@@ -31,10 +31,8 @@ class VideosTest extends ServerApiTestCase {
 		$this->assertEquals($video->original_stream->state_string, "READY");
 	}
 	
-	/**
-     * @expectedException ZiggeoException
-     */
 	public function testCreate3() {
+        $this->expectException("ZiggeoException");
 		$this->ziggeo->videos()->create(array("file" => Globals::$NOVIDEO_FILE));
 	}
 
