@@ -1,6 +1,6 @@
 # Ziggeo's PHP Server SDK
 
-latest version: **0.1.19**
+latest version: **0.1.20**
 
 ## Index
 
@@ -8,7 +8,8 @@ latest version: **0.1.19**
 2. [Prerequisites](#prerequisites)
     1. [Download](#download)
     2. [How to use](#how-to-use)
-3. [Client-Side Integration](#codes-client-side)
+
+    3[Dependencies](#dependencies)3. [Client-Side Integration](#codes-client-side)
 4. [Server-Side Integration](#codes-server-side)
     1. [Init](#codes-init)
     2. [Available Methods](#codes-methods)
@@ -118,6 +119,14 @@ To clone it you would go into your project folder and then
 To start using the PHP SDK you would need to initialize the Ziggeo class with application token, private token and possibly encryption token. The token and keys can be found within the Ziggeo application once you log into your account, under Overview page.
 
 
+### Dependencies<a name="dependencies"></a>
+
+If you are using Auth tokens you would need to install PHPSeclib library, at least for the client auth tokens to be created.
+
+If you are using Composer, you would do the following steps:
+1. Run `composer require phpseclib/phpseclib` within the folder
+2. Edit the Ziggeo.php file and add `require_once 'vendor/autoload.php';` at the very top.
+-PHPSeclib
 ## Client-Side Integration<a name="codes-client-side"></a>
 
 For the client-side integration, you need to add these assets to your html file:
@@ -470,7 +479,7 @@ $ziggeo->streams()->attach_video($video_token_or_key, $token_or_key, $arguments 
 
 ####Attach Subtitle
 
-Attaches a video to a new stream
+Attaches a subtitle to the stream.
 
 ```php
 $ziggeo->streams()->attach_subtitle($video_token_or_key, $token_or_key, $arguments = array())
@@ -516,7 +525,7 @@ $ziggeo->authtokens()->update($token_or_key, $arguments = array())
 - volatile: *Will this object automatically be deleted if it remains empty?*
 - hidden: *If hidden, the token cannot be used directly.*
 - expiration_date: *Expiration date for the auth token (Unix epoch time format)*
-- usage_experitation_time: *Expiration time per session (seconds)*
+- usage_expiration_time: *Expiration time per session (seconds)*
 - session_limit: *Maximal number of sessions*
 - grants: *Permissions this tokens grants*
 
@@ -540,7 +549,7 @@ $ziggeo->authtokens()->create($arguments = array())
 - volatile: *Will this object automatically be deleted if it remains empty?*
 - hidden: *If hidden, the token cannot be used directly.*
 - expiration_date: *Expiration date for the auth token (Unix epoch time format)*
-- usage_experitation_time: *Expiration time per session (seconds)*
+- usage_expiration_time: *Expiration time per session (seconds)*
 - session_limit: *Maximal number of sessions*
 - grants: *Permissions this tokens grants*
 

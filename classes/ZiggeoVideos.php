@@ -66,7 +66,7 @@ Class ZiggeoVideos {
 
   function create($data = array()) {
     if (isset($data['file'])) {
-        $result = $this->application->connect()->postUploadJSON("/v1/videos-upload-url/", "video", $data, "video_type");
+        $result = $this->application->connect()->postUploadJSON('/v1/videos-upload-url', 'video', $data, 'video_type');
         $result['default_stream'] = $this->application->connect()->postJSON('/v1/videos/' . $result['token'] . '/streams/' . $result['default_stream']['token'] . '/confirm-video');
         return $result;
     } else
