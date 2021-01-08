@@ -13,15 +13,15 @@ class VideoStreamsTest extends ServerApiTestCase {
     }
 	
 	public function testCreate1() {
-		$stream = $this->ziggeo->streams()->create($this->video->token, array("file" => Globals::$VIDEO_FILE));
-		$this->assertEquals($stream->creation_type_string, "SERVER_UPLOAD");
-		$this->assertEquals($stream->streamable_string, "DEGRADED");
-		$this->assertEquals($stream->state_string, "READY");
+		$stream = $this->ziggeo->streams()->create($this->video["token"], array("file" => Globals::$VIDEO_FILE));
+		$this->assertEquals($stream["creation_type_string"], "SERVER_UPLOAD");
+		$this->assertEquals($stream["streamable_string"], "DEGRADED");
+		$this->assertEquals($stream["state_string"], "PROCESSING");
 	}
 
 	public function testCreate2() {
         $this->expectException("ZiggeoException");
-		$stream = $this->ziggeo->streams()->create($this->video->token, array("file" => Globals::$NOVIDEO_FILE));
+		$stream = $this->ziggeo->streams()->create($this->video["token"], array("file" => Globals::$NOVIDEO_FILE));
 	}
 
 }

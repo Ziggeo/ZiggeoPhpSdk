@@ -24,8 +24,9 @@ Class ServerApiTestCase extends PHPUnit\Framework\TestCase {
 			$this->ziggeo = new Ziggeo(Globals::$CONFIG["application_token"], Globals::$CONFIG["private_key"]);
         if (@Globals::$CONFIG["config"])
             $this->ziggeo->config()->config = array_merge($this->ziggeo->config()->config, Globals::$CONFIG["config"]);
-		foreach ($this->ziggeo->videos()->index(array("states" => "all")) as $video)
-			$this->ziggeo->videos()->delete($video->token);
+		foreach ($this->ziggeo->videos()->index(array("states" => "all")) as $video) {
+            $this->ziggeo->videos()->delete($video["token"]);
+        }
 	}
 		
 	protected function setUp(): void {
