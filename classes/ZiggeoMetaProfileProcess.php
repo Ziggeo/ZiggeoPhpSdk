@@ -32,4 +32,8 @@ Class ZiggeoMetaProfileProcess {
     return $this->application->connect()->postJSON('/v1/metaprofiles/' . $meta_token_or_key . '/process/nsfw', $data);
   }
 
+  function create_profanity_process($meta_token_or_key, $data = array()) {
+    return $this->application->connect()->postJSON('/v1/metaprofiles/' . $meta_token_or_key . '/process/profanity', $data);
+  }
+
 }
