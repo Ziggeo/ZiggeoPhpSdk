@@ -25,7 +25,7 @@ do {
 	//we go through all of the found videos
 	foreach ($videos as $video) {
 		//We print out the list of the videos we found
-		echo "Listing " . $video->token . " / " . @$video->key . "\n";
+		echo "Listing " . $video["token"] . " / " . @$video["key"] . "\n";
 		$skip++; //We use this for the index purposes (code at start of do loop)
 	}
 } while (count($videos) > 0);

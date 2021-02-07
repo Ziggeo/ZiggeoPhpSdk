@@ -7,8 +7,8 @@ Class ZiggeoConfig {
 	
 	function __construct() {
 		$this->config = array(
-            "regions" => array("r1" => "https://srvapi-eu-west-1.ziggeo.com", ),
-			"server_api_url" => "https://srvapi.ziggeo.com",
+            "regions" => array("r1" => "https://srv-api-eu-west-1.ziggeo.com", ),
+			"server_api_url" => "https://srv-api.ziggeo.com",
             "api_regions" => array("r1" => "https://api-eu-west-1.ziggeo.com", ),
             "api_url" => "https://api-us-east-1.ziggeo.com",
             "cdn_regions" => array("r1" => "https://video-cdn-eu-west-1.ziggeo.com", ),
