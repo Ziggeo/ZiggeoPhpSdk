@@ -1,6 +1,6 @@
 # Ziggeo's PHP Server SDK
 
-latest version: **0.1.24**
+latest version: **0.1.27**
 
 ## Index
 
@@ -949,6 +949,6 @@ http://543e13e6.ngrok.io -> localhost:12345
 
 ## License <a name="license"></a>
 
-Copyright (c) 2013-2021 Ziggeo
+Copyright (c) 2013-2022 Ziggeo
  
 Apache 2.0 License
