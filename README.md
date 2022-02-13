@@ -1,6 +1,6 @@
 # Ziggeo's PHP Server SDK
 
-latest version: **0.1.28**
+latest version: **0.1.29**
 
 ## Index
 
