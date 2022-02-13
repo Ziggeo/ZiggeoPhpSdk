@@ -26,8 +26,8 @@ Class ZiggeoAudio_streams {
 
   function create($audio_token_or_key, $data = array()) {
     if (isset($data['file'])) {
-        $result = $this->application->connect()->postUploadJSON('/server/v1/audios/' . $video_token_or_key . '/streams-upload-url', 'stream', $data, 'video_type');
-        $result = $this->application->connect()->postJSON('/server/v1/audios/' . $video_token_or_key . '/streams/' . $result['token'] . '/confirm-video');
+        $result = $this->application->connect()->postUploadJSON('/server/v1/audios/' . $audio_token_or_key . '/streams-upload-url', 'stream', $data, 'audio_type');
+        $result = $this->application->connect()->postJSON('/server/v1/audios/' . $audio_token_or_key . '/streams/' . $result['token'] . '/confirm-video');
         return $result;
     } else
         return $this->application->apiConnect()->postJSON('/server/v1/audios/bytoken/' . $audio_token_or_key . '/streams', $data);
