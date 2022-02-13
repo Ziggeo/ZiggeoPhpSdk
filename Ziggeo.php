@@ -113,6 +113,24 @@ Class Ziggeo {
     }
 
 
+    private $audios = NULL;
+
+    function audios() {
+        if (!@$this->audios)
+            $this->audios = new ZiggeoAudios($this);
+        return $this->audios;
+    }
+
+
+    private $audio_streams = NULL;
+
+    function audio_streams() {
+        if (!@$this->audio_streams)
+            $this->audio_streams = new ZiggeoAudio_streams($this);
+        return $this->audio_streams;
+    }
+
+
     private $authtokens = NULL;
 
     function authtokens() {

@@ -1,6 +1,6 @@
 # Ziggeo's PHP Server SDK
 
-latest version: **0.1.27**
+latest version: **0.1.28**
 
 ## Index
 
@@ -41,35 +41,50 @@ latest version: **0.1.27**
         8. [Streams Attach Image](#method-streams-attach-image)
         9. [Streams Attach Video](#method-streams-attach-video)
         10. [Streams Attach Subtitle](#method-streams-attach-subtitle)
-        11. [Streams Bind](#method-streams-bind)
-    5. [Methods for Authtokens](#method-authtokens)
+    5. [Methods for Audios](#method-audios)
+        1. [Audios Index](#method-audios-index)
+        2. [Audios Count](#method-audios-count)
+        3. [Audios Get](#method-audios-get)
+        4. [Audios Get Bulk](#method-audios-get-bulk)
+        5. [Audios Download Audio](#method-audios-download-audio)
+        6. [Audios Update](#method-audios-update)
+        7. [Audios Update Bulk](#method-audios-update-bulk)
+        8. [Audios Delete](#method-audios-delete)
+        9. [Audios Create](#method-audios-create)
+    6. [Methods for Audio_streams](#method-audio-streams)
+        1. [Audio_streams Index](#method-audio-streams-index)
+        2. [Audio_streams Get](#method-audio-streams-get)
+        3. [Audio_streams Download Audio](#method-audio-streams-download-audio)
+        4. [Audio_streams Delete](#method-audio-streams-delete)
+        5. [Audio_streams Create](#method-audio-streams-create)
+    7. [Methods for Authtokens](#method-authtokens)
         1. [Authtokens Get](#method-authtokens-get)
         2. [Authtokens Update](#method-authtokens-update)
         3. [Authtokens Delete](#method-authtokens-delete)
         4. [Authtokens Create](#method-authtokens-create)
-    6. [Methods for Application](#method-application)
+    8. [Methods for Application](#method-application)
         1. [Application Get](#method-application-get)
         2. [Application Update](#method-application-update)
         3. [Application Get Stats](#method-application-get-stats)
-    7. [Methods for Effect Profiles](#method-effect-profiles)
+    9. [Methods for Effect Profiles](#method-effect-profiles)
         1. [Effect Profiles Create](#method-effect-profiles-create)
         2. [Effect Profiles Index](#method-effect-profiles-index)
         3. [Effect Profiles Get](#method-effect-profiles-get)
         4. [Effect Profiles Delete](#method-effect-profiles-delete)
         5. [Effect Profiles Update](#method-effect-profiles-update)
-    8. [Methods for Effect Profile Process](#method-effect-profile-process)
+    10. [Methods for Effect Profile Process](#method-effect-profile-process)
         1. [Effect Profile Process Index](#method-effect-profile-process-index)
         2. [Effect Profile Process Get](#method-effect-profile-process-get)
         3. [Effect Profile Process Delete](#method-effect-profile-process-delete)
         4. [Effect Profile Process Create Filter Process](#method-effect-profile-process-create-filter-process)
         5. [Effect Profile Process Create Watermark Process](#method-effect-profile-process-create-watermark-process)
         6. [Effect Profile Process Edit Watermark Process](#method-effect-profile-process-edit-watermark-process)
-    9. [Methods for Meta Profiles](#method-meta-profiles)
+    11. [Methods for Meta Profiles](#method-meta-profiles)
         1. [Meta Profiles Create](#method-meta-profiles-create)
         2. [Meta Profiles Index](#method-meta-profiles-index)
         3. [Meta Profiles Get](#method-meta-profiles-get)
         4. [Meta Profiles Delete](#method-meta-profiles-delete)
-    10. [Methods for Meta Profile Process](#method-meta-profile-process)
+    12. [Methods for Meta Profile Process](#method-meta-profile-process)
         1. [Meta Profile Process Index](#method-meta-profile-process-index)
         2. [Meta Profile Process Get](#method-meta-profile-process-get)
         3. [Meta Profile Process Delete](#method-meta-profile-process-delete)
@@ -77,11 +92,11 @@ latest version: **0.1.27**
         5. [Meta Profile Process Create Audio Transcription Process](#method-meta-profile-process-create-audio-transcription-process)
         6. [Meta Profile Process Create Nsfw Process](#method-meta-profile-process-create-nsfw-process)
         7. [Meta Profile Process Create Profanity Process](#method-meta-profile-process-create-profanity-process)
-    11. [Methods for Webhooks](#method-webhooks)
+    13. [Methods for Webhooks](#method-webhooks)
         1. [Webhooks Create](#method-webhooks-create)
         2. [Webhooks Confirm](#method-webhooks-confirm)
         3. [Webhooks Delete](#method-webhooks-delete)
-    12. [Methods for Analytics](#method-analytics)
+    14. [Methods for Analytics](#method-analytics)
         1. [Analytics Get](#method-analytics-get)
 5. [Useful](#useful)
     1. [Using with Docker](#docker)
@@ -181,14 +196,16 @@ Currently available methods are branched off within different categories:
 
 1. Videos
 2. Streams
-3. Authtokens
-4. Application
-5. Effect Profiles
-6. Effect Profile Process
-7. Meta Profiles
-8. Meta Profile Process
-9. Webhooks
-10. Analytics
+3. Audios
+4. Audio_streams
+5. Authtokens
+6. Application
+7. Effect Profiles
+8. Effect Profile Process
+9. Meta Profiles
+10. Meta Profile Process
+11. Webhooks
+12. Analytics
 
 Each of this sections has their own actions and they are explained bellow
 
@@ -461,7 +478,7 @@ $ziggeo->streams()->create($video_token_or_key, $arguments = array())
 
 #### Attach Image<a name="method-streams-attach-image"></a>
 
-Attaches an image to a new stream
+Attaches an image to a new stream. Must be attached before video, since video upload triggers the transcoding job and binds the stream
 
 ```php
 $ziggeo->streams()->attach_image($video_token_or_key, $token_or_key, $arguments = array())
@@ -494,15 +511,173 @@ $ziggeo->streams()->attach_subtitle($video_token_or_key, $token_or_key, $argumen
 - label: *Subtitle reference*
 - data: *Actual subtitle*
 
-#### Bind<a name="method-streams-bind"></a>
+### Audios<a name="method-audios"></a>
 
-Closes and submits the stream
+
+The audios resource allows you to access all single audios. Each video may contain more than one stream.
+
+#### Index<a name="method-audios-index"></a>
+
+Query an array of audios (will return at most 50 audios by default). Newest audios come first.
 
 ```php
-$ziggeo->streams()->bind($video_token_or_key, $token_or_key, $arguments = array())
+$ziggeo->audios()->index($arguments = array())
 ```
 
  Arguments
+- limit: *Limit the number of returned audios. Can be set up to 100.*
+- skip: *Skip the first [n] entries.*
+- reverse: *Reverse the order in which audios are returned.*
+- states: *Filter audios by state*
+- tags: *Filter the search result to certain tags, encoded as a comma-separated string*
+
+#### Count<a name="method-audios-count"></a>
+
+Get the audio count for the application.
+
+```php
+$ziggeo->audios()->count($arguments = array())
+```
+
+ Arguments
+- states: *Filter audios by state*
+- tags: *Filter the search result to certain tags, encoded as a comma-separated string*
+
+#### Get<a name="method-audios-get"></a>
+
+Get a single audio by token or key.
+
+```php
+$ziggeo->audios()->get($token_or_key)
+```
+
+#### Get Bulk<a name="method-audios-get-bulk"></a>
+
+Get multiple audios by tokens or keys.
+
+```php
+$ziggeo->audios()->get_bulk($arguments = array())
+```
+
+ Arguments
+- tokens_or_keys: *Comma-separated list with the desired audios tokens or keys (Limit: 100 tokens or keys).*
+
+#### Download Audio<a name="method-audios-download-audio"></a>
+
+Download the audio data file
+
+```php
+$ziggeo->audios()->download_audio($token_or_key)
+```
+
+#### Update<a name="method-audios-update"></a>
+
+Update single audio by token or key.
+
+```php
+$ziggeo->audios()->update($token_or_key, $arguments = array())
+```
+
+ Arguments
+- min_duration: *Minimal duration of audio*
+- max_duration: *Maximal duration of audio*
+- tags: *Audio Tags*
+- key: *Unique (optional) name of audio*
+- volatile: *Automatically removed this audio if it remains empty*
+- expiration_days: *After how many days will this audio be deleted*
+- expire_on: *On which date will this audio be deleted. String in ISO 8601 format: YYYY-MM-DD*
+
+#### Update Bulk<a name="method-audios-update-bulk"></a>
+
+Update multiple audios by token or key.
+
+```php
+$ziggeo->audios()->update_bulk($arguments = array())
+```
+
+ Arguments
+- tokens_or_keys: *Comma-separated list with the desired audios tokens or keys (Limit: 100 tokens or keys).*
+- min_duration: *Minimal duration of audio*
+- max_duration: *Maximal duration of audio*
+- tags: *Audio Tags*
+- volatile: *Automatically removed this audio if it remains empty*
+- expiration_days: *After how many days will this audio be deleted*
+- expire_on: *On which date will this audio be deleted. String in ISO 8601 format: YYYY-MM-DD*
+
+#### Delete<a name="method-audios-delete"></a>
+
+Delete a single audio by token or key.
+
+```php
+$ziggeo->audios()->delete($token_or_key)
+```
+
+#### Create<a name="method-audios-create"></a>
+
+Create a new audio.
+
+```php
+$ziggeo->audios()->create($arguments = array())
+```
+
+ Arguments
+- file: *Audio file to be uploaded*
+- min_duration: *Minimal duration of audio*
+- max_duration: *Maximal duration of audio*
+- tags: *Audio Tags*
+- key: *Unique (optional) name of audio*
+- volatile: *Automatically removed this video if it remains empty*
+
+### Audio_streams<a name="method-audio-streams"></a>
+
+
+The streams resource allows you to directly access all streams associated with a single audio.
+
+#### Index<a name="method-audio-streams-index"></a>
+
+Return all streams associated with a audio
+
+```php
+$ziggeo->audio_streams()->index($audio_token_or_key, $arguments = array())
+```
+
+ Arguments
+- states: *Filter streams by state*
+
+#### Get<a name="method-audio-streams-get"></a>
+
+Get a single stream
+
+```php
+$ziggeo->audio_streams()->get($audio_token_or_key, $token_or_key)
+```
+
+#### Download Audio<a name="method-audio-streams-download-audio"></a>
+
+Download the audio data associated with the stream
+
+```php
+$ziggeo->audio_streams()->download_audio($audio_token_or_key, $token_or_key)
+```
+
+#### Delete<a name="method-audio-streams-delete"></a>
+
+Delete the stream
+
+```php
+$ziggeo->audio_streams()->delete($audio_token_or_key, $token_or_key)
+```
+
+#### Create<a name="method-audio-streams-create"></a>
+
+Create a new stream
+
+```php
+$ziggeo->audio_streams()->create($audio_token_or_key, $arguments = array())
+```
+
+ Arguments
+- file: *Audio file to be uploaded*
 
 ### Authtokens<a name="method-authtokens"></a>
 
