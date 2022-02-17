@@ -86,6 +86,20 @@ Class Ziggeo {
         return $this->cdnConnect;
     }
 
+		private $jsCdnConnect = NULL;
+
+		function jsCdnConnect() {
+				if (!@$this->jsCdnConnect) {
+						$jsCdn_url = $this->config()->get("js_cdn_url");
+						$jsCdn_regions = $this->config()->get("js_cdn_regions");
+						foreach ($jsCdn_regions as $key => $value)
+								if (strpos($this->token(), $key) === 0)
+										$jsCdn_url = $value;
+						$this->jsCdnConnect = new ZiggeoConnect($this, $jsCdn_url, $this->config());
+				}
+			return $this->jsCdnConnect;
+		}
+
     private $auth = NULL;
 
     function auth() {
@@ -122,12 +136,12 @@ Class Ziggeo {
     }
 
 
-    private $audio_streams = NULL;
+    private $audioStreams = NULL;
 
-    function audio_streams() {
-        if (!@$this->audio_streams)
-            $this->audio_streams = new ZiggeoAudio_streams($this);
-        return $this->audio_streams;
+    function audioStreams() {
+        if (!@$this->audioStreams)
+            $this->audioStreams = new ZiggeoAudioStreams($this);
+        return $this->audioStreams;
     }
 
 

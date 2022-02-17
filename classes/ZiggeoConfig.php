@@ -8,11 +8,13 @@ Class ZiggeoConfig {
 	function __construct() {
 		$this->config = array(
             "regions" => array("r1" => "https://srv-api-eu-west-1.ziggeo.com", ),
-			"server_api_url" => "https://srv-api.ziggeo.com",
+						"server_api_url" => "https://srv-api.ziggeo.com",
             "api_regions" => array("r1" => "https://api-eu-west-1.ziggeo.com", ),
             "api_url" => "https://api-us-east-1.ziggeo.com",
             "cdn_regions" => array("r1" => "https://video-cdn-eu-west-1.ziggeo.com", ),
             "cdn_url" => "https://video-cdn.ziggeo.com",
+						"js_cdn_regions" => array("r1" => "https://media-cdn-eu-west-1.ziggeo.com", ),
+						"js_cdn_url" => "https://media-cdn.ziggeo.com",
             "request_timeout" => 60,
             "resilience_factor" => 5,
             "resilience_onfail" => [ "error" => true ], //change this to represent code that returns if your server does not reach our server for some reason even after few attempts. Can be any valid code that your code can look out for.
