@@ -17,7 +17,7 @@ $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
 $ziggeo->videos()->create(array(
 	"file" => $opts["filepath"],
-    "key" => $opts["video_key"]
+	"key" => $opts["video_key"]
 ));
 
 ?>

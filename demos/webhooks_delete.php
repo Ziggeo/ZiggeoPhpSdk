@@ -15,8 +15,10 @@ $opts = getopt("", array("app_token:", "private_key:", "url:"));
 //We initialize our SDK
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
-$ziggeo->webhooks()->delete(array(
+$arguments = array(
 	"target_url" => $opts["url"]
-));
+);
+
+$ziggeo->webhooks()->delete($arguments);
 
 ?>

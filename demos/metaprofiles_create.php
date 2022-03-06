@@ -10,13 +10,17 @@
 */
 require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
-$opts = getopt("", array("app_token:", "private_key:", "meta_title:", "meta_key:"));
+$opts = getopt("", array("app_token:", "private_key:", "meta_title:", "meta_key::"));
 
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
-$ziggeo->metaProfiles()->create(array(
+$arguments = array(
 	"title" => $opts["meta_title"],
-	"key" => (!empty($opts["meta_key"])) ? $opts["meta_key"] : null
-));
+	"key" => $opts["meta_key"]
+);
+
+var_dump($arguments);
+
+$ziggeo->metaProfiles()->create($arguments);
 
 ?>

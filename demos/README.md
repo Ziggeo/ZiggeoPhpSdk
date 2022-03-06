@@ -2,7 +2,7 @@ This readme will show you how to run demos and how they are organized
 
 # How to call demos through console
 
-If you want to use the code from `video_count.php` you would want to open it and see what parameters it requires.
+If you want to use the code from `videos_count.php` you would want to open it and see what parameters it requires.
 
 In its case this is important to us `getopt("", array("app_token:", "private_key:"));`
 
@@ -10,7 +10,7 @@ It means that we need to pass `app_token` and `private_key` to our script.
 
 ## We would do it like so:
 
-```php video_count.php --app_token "APP_TOKEN" --private_key "PRIVATE_KEY"```
+```php videos_count.php --app_token "APP_TOKEN" --private_key "PRIVATE_KEY"```
 
 So every file will have its own parameters, however they will always be called out like so:
 

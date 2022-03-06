@@ -5,16 +5,16 @@
 	Parameters you need to pass:
 	1. app_token
 	2. private_key
-	3. file_path
+	3. filename
 */
 require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
-$opts = getopt("", array("app_token:", "private_key:", "file_path:"));
+$opts = getopt("", array("app_token:", "private_key:", "filename:"));
 
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
 $ziggeo->videos()->create(array(
-	"file" => $opts["file_path"] //path and name with extension
+	"file" => $opts["filename"] //path and name with extension
 ));
 
 ?>

@@ -18,10 +18,12 @@ $opts = getopt("", array("app_token:", "private_key:", "url:", "encoding:", "eve
 //We initialize the SDK
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
-$ziggeo->webhooks()->create(array(
+$arguments = array(
 	"target_url" => $opts["url"],
-	"encoding" => $opts["encoding"],
-	"events" => $opts["events"]
-));
+	"encoding"   => $opts["encoding"],
+	"events"     => $opts["events"]
+);
+
+$ziggeo->webhooks()->create($arguments);
 
 ?>

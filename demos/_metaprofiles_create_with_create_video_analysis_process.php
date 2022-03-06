@@ -7,19 +7,21 @@
 	Parameters you need to pass:
 	1. app_token
 	2. private_key
-	3. meta_profiles_token
+	3. meta_title
+	4. meta_key
 */
 require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
-$opts = getopt("", array("app_token:", "private_key:", "meta_profiles_token:"));
+$opts = getopt("", array("app_token:", "private_key:", "meta_title:", "meta_key:"));
 
 //We initiate our SDK
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
-$meta_profiles_token = $opts["meta_profiles_token"];
+$metaprofiles = $ziggeo->metaProfiles()->create(array(
+	"title" => $opts["meta_title"],
+	"key" => (!empty($opts["meta_key"])) ? $opts["meta_key"] : null
+));
 
-$result = $ziggeo->metaProfileProcess()->create_video_analysis_process($meta_profiles_token);
-
-var_dump($result);
+$ziggeo->metaProfileProcess()->create_video_analysis_process($metaprofiles->token));
 
 ?>

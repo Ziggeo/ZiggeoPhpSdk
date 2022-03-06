@@ -23,7 +23,7 @@
 	$custom_data = $video_data['data']; //custom data sent with video
 
 	$device_info = $video_data['device_info']; //if you like to see what system someone was using when creating videos
-											   // (it will not be present on all videos).
+	                                           // (it will not be present on all videos).
 
 	$is_HD = $video_data['hd'];
 

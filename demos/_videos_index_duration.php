@@ -17,6 +17,7 @@ $skip = 0;
 $limit = 100;
 $total_duration = 0;
 $count_duration = 0;
+
 do {
 	$videos = $ziggeo->videos()->index(array(
 		"skip" => $skip,
@@ -30,6 +31,7 @@ do {
 		$skip++; //We use this for the index purposes (code at start of do loop)
 	}
 } while (count($videos) > 0);
+
 print("Total Duration = ".$total_duration." seconds, Average Duration = ".($total_duration/$count_duration)."seconds\n");
 
 ?>

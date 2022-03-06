@@ -6,17 +6,17 @@
 	1. app_token
 	2. private_key
 	3. video_token
-	4. video_tags
+	4. tags
 */
 require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
-$opts = getopt("", array("app_token:", "private_key:", "video_token:", "video_tags:"));
+$opts = getopt("", array("app_token:", "private_key:", "video_token:", "tags:"));
 
 //We initialize our SDK
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
 $ziggeo->videos()->update($opts["video_token"], array(
-	"tags" => $opts['video_tags']
+	"tags" => $opts['tags']
 ));
 
 ?>

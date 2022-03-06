@@ -28,16 +28,18 @@ do {
 	foreach ($videos as $video) {
 		$test += 1;
 		
-		if(isset($video->device_info)){
+		if(isset($video->device_info)) {
 			$browser  = $video->device_info->browser;
 			// print('test '.$test." ".$browser."\n");
-		} else {
+		}
+		else {
 			$browser = "Unknown";
 			// print('test '.$test." Unknown\n");
 		}
-		if (!array_key_exists($browser, $browsers)){
+		if (!array_key_exists($browser, $browsers)) {
 			$browsers[$browser] = 1;
-		}else{
+		}
+		else {
 			$browsers[$browser] += 1;
 		}
 		
@@ -46,7 +48,8 @@ do {
 		$skip++; //We use this for the index purposes (code at start of do loop)
 	}
 } while (count($videos) > 0);
-foreach ($browsers as $key => $value){
+
+foreach ($browsers as $key => $value) {
 	print("Browser ".$key.": ".$value." (".(($value/$total_browser)*100)."%)\n");
 }
 ?>
