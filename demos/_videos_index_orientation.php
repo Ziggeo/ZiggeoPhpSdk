@@ -17,6 +17,7 @@ $skip = 0;
 $limit = 100;
 $count_landscape = 0;
 $count_portrait = 0;
+
 do {
 	$videos = $ziggeo->videos()->index(array(
 		"skip" => $skip,
@@ -38,6 +39,7 @@ do {
 		$skip++; //We use this for the index purposes (code at start of do loop)
 	}
 } while (count($videos) > 0);
+
 print("Portrait count = ".$count_portrait." Portrait Percentage = ".(($count_portrait/($count_landscape+$count_portrait))*100)."%\n");
 print("Landscape count = ".$count_landscape." Landscape Percentage = ".(($count_landscape/($count_landscape+$count_portrait))*100)."%");
 ?>

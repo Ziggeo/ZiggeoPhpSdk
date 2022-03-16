@@ -1,12 +1,12 @@
 <?php
 /*
-    This script will show you how you can create the video with custom image, utilizing the streams methods.
+	This script will show you how you can create the video with custom image, utilizing the streams methods.
 
-    Parameters you need to pass:
-    1. app_token - app token
-    2. private_key - private key
-    3. path_image - path to image file
-    4. path_video - path to video file
+	Parameters you need to pass:
+	1. app_token - app token
+	2. private_key - private key
+	3. path_image - path to image file
+	4. path_video - path to video file
 
 */
 require_once(dirname(__FILE__) . "/../Ziggeo.php");

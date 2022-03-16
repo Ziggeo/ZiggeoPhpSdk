@@ -6,21 +6,21 @@
 	1. app_token
 	2. private_key
 	3. video_token
-	4. video_stream
+	4. stream_token
 */
 require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
-$opts = getopt("", array("app_token:", "private_key:", "video_token:", "video_stream:"));
+$opts = getopt("", array("app_token:", "private_key:", "video_token:", "stream_token:"));
 
 //We initialize our SDK
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
 //see streams_get.php for more info
-$video = $ziggeo->streams()->get($opts["video_token"], $opts["video_stream"]);
+$video = $ziggeo->streams()->get($opts["video_token"], $opts["stream_token"]);
 
-$file_name = $opts["video_token"]."_".$opts["video_stream"].".".$video["video_type"];
+$file_name = $opts["video_token"]."_".$opts["stream_token"].".".$video["video_type"];
 
-$file_content = $ziggeo->streams()->download_video($opts["video_token"], $opts["video_stream"]);
+$file_content = $ziggeo->streams()->download_video($opts["video_token"], $opts["stream_token"]);
 
 file_put_contents($file_name, $file_content);
 

@@ -17,9 +17,11 @@ $opts = getopt("", array("app_token:", "private_key:", "webhook_id:", "validatio
 //We initialize the SDK
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
-$ziggeo->webhooks()->confirm(array(
-	"webhook_id" => $opts["webhook_id"],
+$arguments = array(
+	"webhook_id"      => $opts["webhook_id"],
 	"validation_code" => $opts["validation_code"]
-));
+);
+
+$ziggeo->webhooks()->confirm($arguments);
 
 ?>

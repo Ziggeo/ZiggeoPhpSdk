@@ -21,7 +21,7 @@ $result = $ziggeo->authtokens()->update($opts["auth_token"] ,array(
 			"session_owned" => TRUE
 		)
 	),
-    "usage_expiration_time" => 86400,
+	"usage_expiration_time" => 86400,
 	"session_limit" => 2
 
 ));

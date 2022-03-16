@@ -6,18 +6,15 @@
 	1. app_token
 	2. private_key
 	3. video_token
-	4. filename
 */
 require_once(dirname(__FILE__) . "/../Ziggeo.php");
 
-$opts = getopt("", array("app_token:", "private_key:", "video_token:", "filename:"));
+$opts = getopt("", array("app_token:", "private_key:", "video_token:"));
 
 $ziggeo = new Ziggeo($opts["app_token"], $opts["private_key"]);
 
-$file_name = $opts["filename"];
-
 $file_content = $ziggeo->videos()->download_image($opts["video_token"]) ;
 
-file_put_contents($file_name, $file_content);
+file_put_contents('image.jpg', $file_content);
 
 ?>
