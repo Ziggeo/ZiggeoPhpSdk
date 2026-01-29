@@ -12,13 +12,7 @@ Class ZiggeoConnect {
         $this->baseUrl = $baseUrl;
         $this->config = $config;
         $this->point_zero = 0;
-
-        if (version_compare(phpversion(), '5.5.0', '<')) {
-            $this->progress_old = true;
-        }
-        else {
-            $this->progress_old = false;
-        }
+        $this->progress_old = false;
     }
 
     public function curlUploadFile($url, $file, $fields) {
@@ -29,8 +23,7 @@ Class ZiggeoConnect {
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_FAILONERROR, true);
 
-            if( (ini_get('safe_mode') === 'Off' || ini_get('safe_mode') === false) && ini_get('open_basedir') === '' ) {
-                //we can only make curl follow the redirects if the safe mod is off and open_basedir is not set, otherwise it would throw error
+            if(ini_get('open_basedir') === '') {
                 curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
             }
 
@@ -51,15 +44,7 @@ Class ZiggeoConnect {
 
             curl_exec($curl);
 
-            //At this time both are supported, since later is legacy now soon it will be dropped, so future proofing
-            if(version_compare('5.5.0', PHP_VERSION, '>=') && version_compare( '7.10.8', curl_version(['version']), '>=')) {
-                $response_const = CURLINFO_RESPONSE_CODE;
-            }
-            else {
-                $response_const = CURLINFO_HTTP_CODE;
-            }
-
-            $result = curl_getinfo($curl, $response_const);
+            $result = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             if ($result >= 200 && $result < 300)
                 return;
         }
@@ -72,8 +57,7 @@ Class ZiggeoConnect {
         $curl = curl_init($this->baseUrl . $url);
         curl_setopt($curl, CURLOPT_FAILONERROR, true);
 
-        if( (ini_get('safe_mode') === 'Off' || ini_get('safe_mode') === false) && ini_get('open_basedir') === '' ) {
-            //we can only make curl follow the redirects if the safe mod is off and open_basedir is not set, otherwise it would throw error
+        if(ini_get('open_basedir') === '') {
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         }
 
@@ -96,14 +80,6 @@ Class ZiggeoConnect {
 
     private function progressHandler($resource, $download_size = 0, $downloaded = 0, $upload_size = 0, $uploaded = 0) {
 
-        if($this->progress_old) {
-            //Need this because the params are moved between different versions..
-            $uploaded = $upload_size;
-            $upload_size = $downloaded;
-            $downloaded = $download_size;
-            $download_size = $resource;
-        }
-
         echo "\n";
         echo 'Runtime: ' . ((float)microtime(true) - (float)$this->point_zero) . ' seconds';
         echo ' Upload status: ' . ($uploaded / $this->config->get('info')['progress_multiplier']) . ' / ' . ($upload_size / $this->config->get('info')['progress_multiplier']) . ' ' . $this->config->get('info')['progress_desc'];
@@ -111,7 +87,7 @@ Class ZiggeoConnect {
         return 0;
     }
 
-    private function singleRequest($request_type = 'POST', $url = '', $data) {
+    private function singleRequest($request_type = 'POST', $url = '', $data = []) {
 
         $curl = $this->curl($url);
 
@@ -128,18 +104,10 @@ Class ZiggeoConnect {
         $this->point_zero = microtime(true);
         $result_data = curl_exec($curl);
 
-        //At this time both are supported, since later is legacy now soon it will be dropped, so future proofing
-        if(version_compare('5.5.0', PHP_VERSION, '>=') && version_compare( '7.10.8', curl_version(['version']), '>=')) {
-            $response_const = CURLINFO_RESPONSE_CODE;
-        }
-        else {
-            $response_const = CURLINFO_HTTP_CODE;
-        }
-
         //Let us get the info on the call
         $result_info = [
             //get the last response code
-            'response_code' => curl_getinfo($curl, $response_const),
+            'response_code' => curl_getinfo($curl, CURLINFO_HTTP_CODE),
             //The CONNECT response code
             'connect_code' => curl_getinfo($curl, CURLINFO_HTTP_CONNECTCODE),
             //Errno from a connect failure. The number is OS and system specific.
@@ -168,7 +136,7 @@ Class ZiggeoConnect {
         return $rez;
     }
 
-    public function makeRequest($request_type = 'POST', $url, $data = false) {
+    public function makeRequest($request_type, $url, $data = false) {
         for($i = 0; $i < $this->config->get("resilience_factor"); $i++) {
 
             $result = $this->singleRequest($request_type, $url, $data);
@@ -242,10 +210,10 @@ Class ZiggeoConnect {
         return json_decode($this->delete($url, $assert_state), TRUE);
     }
 
-    public function postUploadJSON($url, $scope, $data, $type_key = NULL) {
+    public function postUploadJSON($url, $scope, $data, $type_key = null) {
         $file = $data["file"];
         unset($data["file"]);
-        if (@$type_key)
+        if ($type_key !== null)
             $data[$type_key] = array_reverse(explode(".", $file))[0];
         $result = $this->application->connect()->postJSON($url, $data);
         $ret = $result[$scope];

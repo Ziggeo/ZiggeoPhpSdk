@@ -17,12 +17,12 @@ require_once(dirname(__FILE__) . "/../../Ziggeo.php");
 
 Class ServerApiTestCase extends PHPUnit\Framework\TestCase {
 	
-	protected $ziggeo = NULL;
+	protected $ziggeo = null;
 	
 	private function init() {
-		if (!@$this->ziggeo)
+		if ($this->ziggeo === null)
 			$this->ziggeo = new Ziggeo(Globals::$CONFIG["application_token"], Globals::$CONFIG["private_key"]);
-        if (@Globals::$CONFIG["config"])
+        if (isset(Globals::$CONFIG["config"]))
             $this->ziggeo->config()->config = array_merge($this->ziggeo->config()->config, Globals::$CONFIG["config"]);
 		foreach ($this->ziggeo->videos()->index(array("states" => "all")) as $video) {
             $this->ziggeo->videos()->delete($video["token"]);

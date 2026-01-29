@@ -7,14 +7,14 @@ Class ZiggeoAuth {
 
 	function __construct($application) {
 		$this->application = $application;
-		$this->cipher = NULL;
+		$this->cipher = null;
 	}
 	
 	protected function encrypt($plaintext) {
-		if ($this->cipher == NULL) {
-			$hash = new phpseclib\Crypt\Hash('md5');
+		if ($this->cipher === null) {
+			$hash = new phpseclib3\Crypt\Hash('md5');
 			$hashed_key = bin2hex($hash->hash($this->application->encryption_key()));
-			$this->cipher = new phpseclib\Crypt\AES(phpseclib\Crypt\Base::MODE_CBC);
+			$this->cipher = new phpseclib3\Crypt\AES('cbc');
 			$this->cipher->setKeyLength(256);
 			$this->cipher->setKey($hashed_key);
 		}
