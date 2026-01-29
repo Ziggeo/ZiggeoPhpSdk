@@ -12,7 +12,7 @@ Class Ziggeo {
     private $private_key;
     private $encryption_key;
 
-    function __construct($token, $private_key, $encryption_key = NULL, $config = NULL) {
+    function __construct($token, $private_key, $encryption_key = null, $config = null) {
         $this->token = $token;
         $this->private_key = $private_key;
         $this->encryption_key = $encryption_key;
@@ -34,19 +34,19 @@ Class Ziggeo {
         return $this->encryption_key;
     }
 
-    private $config = NULL;
+    private $config = null;
 
     function config() {
-        if (!@$this->config)
+        if ($this->config === null)
             $this->config = new ZiggeoConfig($this);
         return $this->config;
     }
 
 
-    private $connect = NULL;
+    private $connect = null;
 
     function connect() {
-        if (!@$this->connect) {
+        if ($this->connect === null) {
             $server_api_url = $this->config()->get("server_api_url");
             $regions = $this->config()->get("regions");
             foreach ($regions as $key => $value)
@@ -58,10 +58,10 @@ Class Ziggeo {
     }
 
 
-    private $apiConnect = NULL;
+    private $apiConnect = null;
 
     function apiConnect() {
-        if (!@$this->apiConnect) {
+        if ($this->apiConnect === null) {
             $api_url = $this->config()->get("api_url");
             $api_regions = $this->config()->get("api_regions");
             foreach ($api_regions as $key => $value)
@@ -72,10 +72,10 @@ Class Ziggeo {
         return $this->apiConnect;
     }
 
-    private $cdnConnect = NULL;
+    private $cdnConnect = null;
 
     function cdnConnect() {
-        if (!@$this->cdnConnect) {
+        if ($this->cdnConnect === null) {
             $cdn_url = $this->config()->get("cdn_url");
             $cdn_regions = $this->config()->get("cdn_regions");
             foreach ($cdn_regions as $key => $value)
@@ -86,10 +86,10 @@ Class Ziggeo {
         return $this->cdnConnect;
     }
 
-		private $jsCdnConnect = NULL;
+		private $jsCdnConnect = null;
 
 		function jsCdnConnect() {
-				if (!@$this->jsCdnConnect) {
+				if ($this->jsCdnConnect === null) {
 						$jsCdn_url = $this->config()->get("js_cdn_url");
 						$jsCdn_regions = $this->config()->get("js_cdn_regions");
 						foreach ($jsCdn_regions as $key => $value)
@@ -100,118 +100,118 @@ Class Ziggeo {
 			return $this->jsCdnConnect;
 		}
 
-    private $auth = NULL;
+    private $auth = null;
 
     function auth() {
-        if (!@$this->auth)
+        if ($this->auth === null)
             $this->auth = new ZiggeoAuth($this);
         return $this->auth;
     }
 
 
-    private $videos = NULL;
+    private $videos = null;
 
     function videos() {
-        if (!@$this->videos)
+        if ($this->videos === null)
             $this->videos = new ZiggeoVideos($this);
         return $this->videos;
     }
 
 
-    private $streams = NULL;
+    private $streams = null;
 
     function streams() {
-        if (!@$this->streams)
+        if ($this->streams === null)
             $this->streams = new ZiggeoStreams($this);
         return $this->streams;
     }
 
 
-    private $audios = NULL;
+    private $audios = null;
 
     function audios() {
-        if (!@$this->audios)
+        if ($this->audios === null)
             $this->audios = new ZiggeoAudios($this);
         return $this->audios;
     }
 
 
-    private $audioStreams = NULL;
+    private $audioStreams = null;
 
     function audioStreams() {
-        if (!@$this->audioStreams)
+        if ($this->audioStreams === null)
             $this->audioStreams = new ZiggeoAudioStreams($this);
         return $this->audioStreams;
     }
 
 
-    private $authtokens = NULL;
+    private $authtokens = null;
 
     function authtokens() {
-        if (!@$this->authtokens)
+        if ($this->authtokens === null)
             $this->authtokens = new ZiggeoAuthtokens($this);
         return $this->authtokens;
     }
 
 
-    private $application = NULL;
+    private $application = null;
 
     function application() {
-        if (!@$this->application)
+        if ($this->application === null)
             $this->application = new ZiggeoApplication($this);
         return $this->application;
     }
 
 
-    private $effectProfiles = NULL;
+    private $effectProfiles = null;
 
     function effectProfiles() {
-        if (!@$this->effectProfiles)
+        if ($this->effectProfiles === null)
             $this->effectProfiles = new ZiggeoEffectProfiles($this);
         return $this->effectProfiles;
     }
 
 
-    private $effectProfileProcess = NULL;
+    private $effectProfileProcess = null;
 
     function effectProfileProcess() {
-        if (!@$this->effectProfileProcess)
+        if ($this->effectProfileProcess === null)
             $this->effectProfileProcess = new ZiggeoEffectProfileProcess($this);
         return $this->effectProfileProcess;
     }
 
 
-    private $metaProfiles = NULL;
+    private $metaProfiles = null;
 
     function metaProfiles() {
-        if (!@$this->metaProfiles)
+        if ($this->metaProfiles === null)
             $this->metaProfiles = new ZiggeoMetaProfiles($this);
         return $this->metaProfiles;
     }
 
 
-    private $metaProfileProcess = NULL;
+    private $metaProfileProcess = null;
 
     function metaProfileProcess() {
-        if (!@$this->metaProfileProcess)
+        if ($this->metaProfileProcess === null)
             $this->metaProfileProcess = new ZiggeoMetaProfileProcess($this);
         return $this->metaProfileProcess;
     }
 
 
-    private $webhooks = NULL;
+    private $webhooks = null;
 
     function webhooks() {
-        if (!@$this->webhooks)
+        if ($this->webhooks === null)
             $this->webhooks = new ZiggeoWebhooks($this);
         return $this->webhooks;
     }
 
 
-    private $analytics = NULL;
+    private $analytics = null;
 
     function analytics() {
-        if (!@$this->analytics)
+        if ($this->analytics === null)
             $this->analytics = new ZiggeoAnalytics($this);
         return $this->analytics;
     }
