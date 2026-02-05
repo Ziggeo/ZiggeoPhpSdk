@@ -104,8 +104,8 @@ run_demo()
 	run_demo ./demos/auth_generate.php --app_token "$app_token" --private_key "$private_key" --encryption_key "$encryption_key"
 	run_demo ./demos/authtokens_create.php --app_token "$app_token" --private_key "$private_key"
 	run_demo ./demos/authtokens_get.php --app_token "$app_token" --private_key "$private_key" --auth_token "$auth_token"
-	run_demo ./demos/authtokens_delete.php --app_token "$app_token" --private_key "$private_key" --auth_token "$auth_token"
 	run_demo ./demos/authtokens_update.php --app_token "$app_token" --private_key "$private_key" --auth_token "$auth_token"
+	run_demo ./demos/authtokens_delete.php --app_token "$app_token" --private_key "$private_key" --auth_token "$auth_token"
 
 
 # Effect Profiles
